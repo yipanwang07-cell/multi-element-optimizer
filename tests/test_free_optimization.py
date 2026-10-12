@@ -104,7 +104,7 @@ class FreeTests(unittest.TestCase):
             app=App(root); app.apply_config(config())
             edited=app.config()
             self.assertEqual(edited["search"]["mode"],"free")
-            self.assertEqual(edited["height_constraints"][0]["elements"],[1,2])
+            self.assertEqual([g["elements"] for g in edited["height_constraints"]],[[1],[2]])
             self.assertEqual(edited["elements"][0]["chord"],{"min":100.,"max":500.})
         finally: root.destroy()
     def test_free_offset_rejected(self):

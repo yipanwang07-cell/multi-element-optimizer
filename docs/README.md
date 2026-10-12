@@ -319,19 +319,20 @@ density and viscosity overrides are respected. Turbulence intensity is not a
 Reynolds-number input.
 
 
-## Selectable geometry limits in Size & fit
+## Separate Height and Length limits in Size & fit
 
-In **Geometry limits**, select **Height** or **Length**, tick the airfoils to constrain,
-enter a value and unit, and use **Enable** to switch the row on or off. At least one
-row must be enabled. Multiple rows can constrain overlapping groups of airfoils.
+Use the header checkboxes to enable Height (left), Length (right), or both.
+Height selects one airfoil per rule from a dropdown and limits its highest point
+above y = 0. Airfoils physically below it also remain below that ceiling; numbers
+do not determine vertical position.
 
-Height uses the highest y coordinate above the ground/reference plane. Length uses
-the rightmost x coordinate from the first airfoil leading edge at x = 0, not the individual chord or assembly width.
-The preview shows horizontal and vertical limit lines. Both are checked on placed,
-rotated geometry before invoking JavaFoil, including flipped ground-effect setups.
-Disabled rows are retained in saved configurations but ignored by the search.
+Length selects any combination of airfoils and limits sum(max x - min x) over their
+individual rotated outlines. Overlaps count separately; gaps are excluded. The
+preview shows total width used versus the limit instead of a vertical boundary.
 
-For compatibility, JSON stores both types in `height_constraints`. A height row uses
-`max_height` and `measurement: "top_y"`; a length row uses `max_length` and
-`measurement: "right_x"`. Both accept `elements`, `unit`, and `enabled` (default true).
-Older height-only configurations continue to load unchanged.
+Both rules are checked before simulation and retained with the winning setup.
+For JSON compatibility both types use `height_constraints`: `max_height` with
+`measurement: "top_y"`, or `max_length` with `measurement: "sum_width_x"`.
+Rows also contain `elements`, `unit`, and `enabled`. Legacy height groups load as
+separate single-airfoil rules. Legacy length limits use the new summed-width
+interpretation when loaded or rerun. A box's checkbox controls all its rules.

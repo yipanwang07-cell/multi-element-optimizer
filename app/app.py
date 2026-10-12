@@ -477,8 +477,7 @@ class App:
         active=[g for g in self.scene_height_limits if g.get("enabled",True)]
         ceilings=[(g,length_m(g["max_height"],g.get("unit","m"))/self.scene_reference) for g in active if constraint_kind(g)=="height"]
         lengths=[(g,length_m(g["max_length"],g.get("unit","m"))/self.scene_reference) for g in active if constraint_kind(g)=="length"]
-        if lengths:
-            x0=min(0.,x0);x1=max(x1,max(v for g,v in lengths))
+
         if ground or ceilings: y0=min(0.,y0)
         if ceilings:y1=max(y1,max(value for group,value in ceilings))
         width=max(100,self.canvas.winfo_width()); height=max(100,self.canvas.winfo_height())
@@ -505,11 +504,11 @@ class App:
         origin_x=width/2-cx*scale
         self.canvas.create_line(origin_x,0,origin_x,height,fill="#64748b",dash=(3,3),tags="length-reference")
         self.canvas.create_text(origin_x+8,height-18,text="First leading edge: x = 0",anchor="sw",fill="#475569",tags="length-reference")
-        for group,limit in lengths:
-            line_x=width/2+(limit-cx)*scale
-            unit=group.get("unit","m");value=length_m(group["max_length"],unit)/UNIT_FACTORS[unit]
-            self.canvas.create_line(line_x,0,line_x,height,fill="#087f8c",dash=(7,4),width=2,tags="length-limit")
-            self.canvas.create_text(line_x-8,40,text=f"Airfoils {group['elements']}: x ≤ {value:g} {unit}",anchor="ne",fill="#087f8c",tags="length-limit")
+        for row,(group,limit) in enumerate(lengths):
+            total=sum(max(x for x,y in self.geometry[i-1])-min(x for x,y in self.geometry[i-1]) for i in group["elements"])
+            unit=group.get("unit","m");factor=self.scene_reference/UNIT_FACTORS[unit]
+            self.canvas.create_text(width-12,38+row*22,text=f"Airfoils {group['elements']}: total width {total*factor:g} / {limit*factor:g} {unit}",
+                anchor="ne",fill="#087f8c" if total<=limit+1e-12 else "#b42318",tags="length-limit")
         colors=["#2563eb","#dc2626","#059669","#9333ea","#d97706"]
         fills=["#eff5ff","#fff1f0","#ecfdf3","#f4efff","#fff7e6"]
         for index,element in enumerate(self.geometry):

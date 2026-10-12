@@ -18,7 +18,6 @@
   "height_constraints": [
     {
       "elements": [
-        1,
         2
       ],
       "max_height": 200,
@@ -26,7 +25,6 @@
     },
     {
       "elements": [
-        3,
         4
       ],
       "max_height": 200,

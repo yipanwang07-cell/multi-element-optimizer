@@ -15,7 +15,7 @@ def validate_groups(config):
     for group in groups:
         if not group.get("enabled",True): continue
         kind=constraint_kind(group)
-        group["measurement"]="right_x" if kind=="length" else "top_y"
+        group["measurement"]="sum_width_x" if kind=="length" else "top_y"
         group.setdefault("unit",config.get("length_unit","m"))
         ids=group.get("elements",[])
         if not ids or any(type(i) is not int or not 1<=i<=count for i in ids) or len(set(ids))!=len(ids):
@@ -31,14 +31,14 @@ def check_heights(geometry,reference,groups):
         if not group.get("enabled",True): continue
         kind=constraint_kind(group)
         axis=0 if kind=="length" else 1
-        values={i:max(point[axis]*reference for point in geometry[i-1]) for i in group["elements"]}
-        top=max(values.values())
+        values={i:(max(point[axis] for point in geometry[i-1])-min(point[axis] for point in geometry[i-1]) if axis==0 else max(point[axis] for point in geometry[i-1]))*reference for i in group["elements"]}
+        top=sum(values.values()) if axis==0 else max(values.values())
         limit=length_m(group["max_"+kind],group.get("unit","m"))
         if top>limit+1e-12:
-            violating=[i for i,value in values.items() if value>limit+1e-12]
-            description="rightmost point from x=0" if axis==0 else "highest point above y=0"
+            violating=list(values) if axis==0 else [i for i,value in values.items() if value>limit+1e-12]
+            description="sum of horizontal widths" if axis==0 else "highest point above y=0"
             raise ValueError(f"Airfoil(s) {violating} exceed {kind} limit {n}: {description} {top*1000:.3f} mm; limit {limit*1000:g} mm")
-        measurements[f"{'limit_right_x' if axis==0 else 'ceiling_top_y'}_m_{n}"]=top
+        measurements[f"{'limit_sum_width_x' if axis==0 else 'ceiling_top_y'}_m_{n}"]=top
     return measurements
 
 

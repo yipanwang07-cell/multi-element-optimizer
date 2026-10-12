@@ -45,10 +45,10 @@ class ElementCountTests(unittest.TestCase):
                 self.assertEqual(len(pane.rows),8)
                 self.assertEqual(len(pane.config()["elements"]),8)
                 if mode=="sizing":
-                    row=pane.constraints.rows[0]
+                    row=pane.constraints.rows[-1]
                     self.assertEqual(len(row["selected"]),8)
-                    self.assertTrue(row["selected"][6].get())
-                    self.assertEqual(int(row["choices"].winfo_children()[6].grid_info()["row"]),1)
+                    self.assertEqual(row["airfoil"].get(),"Airfoil 7")
+                    self.assertEqual(len(row["selector"]["values"]),8)
                 profiles,chords,ref,axes,_,_=w.prepare(c,w.ROOT)
                 pane.geometry=w.build_geometry(profiles,chords,{k:v[0] for k,v in axes.items()},ref)
                 pane.draw()

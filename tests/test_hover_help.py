@@ -30,7 +30,7 @@ class HelpTests(unittest.TestCase):
                 return found
             required={"chord","gap","overlap","angle_mode","incidence_deg","wingspan","airspeed","reynolds","mach","workers","ground_effect","ground_clearance","cl"}
             for pane in app.panes.values():self.assertTrue(required<=keys(pane.tabs.master))
-            self.assertTrue({"height_group","geometry_limit"}<=keys(app.frames["sizing"]))
+            self.assertTrue({"height_airfoil","geometry_limit"}<=keys(app.frames["sizing"]))
             for key in required:self.assertTrue(HELP[key])
         finally:root.destroy()
 

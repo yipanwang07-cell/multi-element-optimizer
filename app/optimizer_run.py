@@ -68,7 +68,7 @@ def run_design(config,output,base,progress,stop,solver):
     extra += [f"absolute_incidence_{i}" for i in range(1,len(modes)+1)]
     extra += [f"top_y_m_{i}" for i in range(1,len(modes)+1)]
     from geometric_constraints import constraint_kind
-    extra += [f"{'limit_right_x' if constraint_kind(g)=='length' else 'ceiling_top_y'}_m_{i}" for i,g in enumerate(config.get("height_constraints",[]),1) if g.get("enabled",True)]
+    extra += [f"{'limit_sum_width_x' if constraint_kind(g)=='length' else 'ceiling_top_y'}_m_{i}" for i,g in enumerate(config.get("height_constraints",[]),1) if g.get("enabled",True)]
     extra += [f"{name}_m_{i}" for i in range(2,len(modes)+1) for name in ("gap","overlap")]
     with (output/"results.csv").open("w",newline="") as rf, (output/"evaluations.csv").open("w",newline="") as ef, (output/"sweep_trace.jsonl").open("w") as tf:
         result_fields=["geometry_id","alpha","cl","cd","cm","clearance",*names,*extra]

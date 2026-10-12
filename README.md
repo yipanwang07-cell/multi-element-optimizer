@@ -48,32 +48,32 @@ chosen. The app searches element angles, slot gaps and overlaps for maximum **Cl
 ## Size & fit — function description
 
 Use **Size & fit** to optimize chord lengths and arrangement within your geometry limits.
-For each group of selected airfoils, choose **Height** or **Length**, enter a limit
-and unit, and tick **Enable**. Use either type or both; disabled rows remain saved
-but do not constrain the search.
+Geometry limits have two separate boxes: **Height** on the left and **Length**
+on the right. Tick either box or both to enable their rules.
 
-| Limit | What it means |
-| --- | --- |
-| Height | Every selected airfoil's highest point must remain at or below the specified y coordinate. With ground effect, y = 0 is the ground. |
-| Length | Every selected airfoil's rightmost point must remain at or before the specified x coordinate, measured from the first airfoil leading edge at x = 0. This is a position boundary, not chord length or overall assembly width. |
+| Box | Selection | Measurement |
+| --- | --- | --- |
+| Height | One airfoil per rule, chosen from a dropdown | Its highest point above y = 0 must not exceed the limit. With ground effect, y = 0 is the ground. Airfoils physically below it are also below that line. |
+| Length | Any combination of airfoils | Add each selected airfoil's horizontal width after rotation: **sum(max x − min x)**. This sum must not exceed the limit. |
 
-For example, airfoils 1 and 2 can have a **200 mm height** limit and a **600 mm length**
-limit, while airfoils 3 and 4 use different limits. At least one limit must be enabled.
-The preview shows horizontal height lines and vertical length lines. The first
-airfoil's leading edge is fixed at **x = 0**, including when its angle changes.
+Length counts overlapping portions separately and excludes gaps. It is neither
+the sum of chord lengths nor the assembly's bounding width. Changing angles changes
+the measured width; translating an airfoil does not. The first leading edge remains at x = 0.
+
+Add multiple rules if needed. For example, select **Airfoil 4** with a 200 mm height
+limit and **Airfoils 1 and 2** with a 600 mm total-width limit. Numbering does not
+guarantee vertical order: the height rule checks the chosen airfoil, not another
+one that happens to lie above it. At least one box must contain an enabled rule.
 
 ### Height constraint
 
-Selected airfoils must stay below the horizontal line, measured from y = 0.
-
-![Height constraint: selected airfoils remain below a horizontal ceiling](docs/images/height-constraint.svg)
+![Height constraint: the selected airfoil stays below its ceiling](docs/images/height-constraint.svg)
 
 ### Length constraint
 
-Selected airfoils must stay behind the vertical line, measured from the first
-leading edge at x = 0. The diagrams are illustrative, not optimized results.
+![Length constraint: add individual horizontal widths after rotation](docs/images/length-constraint.svg)
 
-![Length constraint: selected airfoils remain behind a vertical boundary measured from the first leading edge](docs/images/length-constraint.svg)
+These diagrams are illustrative, not optimized results.
 
 Within selected groups, the search optimizes **chords → angles → slot gaps → overlaps**.
 Each stage carries its best valid design into the next. Collision, clearance and

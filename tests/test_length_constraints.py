@@ -9,12 +9,13 @@ import wing_optimizer as w
 import test_optimizer as fixtures
 
 class LengthConstraintTests(unittest.TestCase):
-    def test_length_uses_rightmost_position_and_selected_elements(self):
+    def test_length_sums_rotated_widths_not_positions(self):
         g=[[(0,0),(.6,.1)],[(.8,0),(1.2,.1)]]
         group=dict(elements=[1],max_length=600,unit="mm")
-        self.assertAlmostEqual(check_heights(g,1,[group])["limit_right_x_m_1"],.6)
-        with self.assertRaisesRegex(ValueError,"rightmost"):
-            check_heights(g,1,[dict(group,elements=[2])])
+        self.assertAlmostEqual(check_heights(g,1,[group])["limit_sum_width_x_m_1"],.6)
+        with self.assertRaisesRegex(ValueError,"sum of horizontal"):
+            check_heights(g,1,[dict(group,elements=[1,2])])
+        self.assertAlmostEqual(check_heights(g,1,[dict(group,elements=[2])])["limit_sum_width_x_m_1"],.4)
         check_heights(g,1,[dict(group,elements=[2],enabled=False)])
         with self.assertRaises(ValueError):
             check_heights(g,1,[group,dict(elements=[1],max_height=50,unit="mm")])
@@ -22,7 +23,7 @@ class LengthConstraintTests(unittest.TestCase):
     def test_validation_and_disabled_groups(self):
         c=dict(elements=[{}],search=dict(mode="free"),height_constraints=[dict(elements=[1],max_length=600,unit="mm")])
         validate_groups(c)
-        self.assertEqual(c["height_constraints"][0]["measurement"],"right_x")
+        self.assertEqual(c["height_constraints"][0]["measurement"],"sum_width_x")
         for value in (0,-1,float("nan")):
             c["height_constraints"][0]["max_length"]=value
             with self.assertRaises(ValueError):validate_groups(c)
@@ -34,7 +35,7 @@ class LengthConstraintTests(unittest.TestCase):
         root=tk.Tk();root.withdraw()
         try:
             app=App(root,function="sizing")
-            groups=[dict(elements=[1],max_length=600,unit="mm"),dict(elements=[1],max_height=200,unit="mm"),dict(elements=[2],max_length="",unit="mm",enabled=False)]
+            groups=[dict(elements=[1],max_length=600,unit="mm"),dict(elements=[1],max_height=200,unit="mm")]
             app.constraints.set(groups)
             saved=app.constraints.get();app.constraints.set(saved)
             self.assertEqual(app.constraints.get(),saved)
@@ -51,10 +52,10 @@ class LengthConstraintTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             solver=fixtures.WorkflowTests.FakeSolver()
             result=w.run(c,Path(folder)/"run",solver=solver,progress=lambda _:None)
-            self.assertLessEqual(result["best"]["limit_right_x_m_1"],.3+1e-12)
+            self.assertLessEqual(result["best"]["limit_sum_width_x_m_1"],.3+1e-12)
             self.assertGreater(result["rejected_geometries"],0)
             self.assertEqual(len(solver.ids),result["successful_geometries"])
-            self.assertIn("Rightmost point",(Path(folder)/"run/report.html").read_text())
+            self.assertIn("Sum of horizontal widths",(Path(folder)/"run/report.html").read_text())
 
     def test_first_leading_edge_is_origin_after_rotation_and_ground_flip(self):
         from ground_effect import orient_geometry
@@ -68,3 +69,27 @@ class LengthConstraintTests(unittest.TestCase):
             oriented=orient_geometry(g,.4,dict(ground_effect=True,flip_for_downforce=True,clearance_m=.03))
             self.assertAlmostEqual(oriented[0][20][0],0)
             self.assertAlmostEqual(g[1][20][0],(g[0][0][0]+g[0][-1][0])/2-.05)
+
+    def test_width_sum_accounts_for_rotation_overlap_and_units(self):
+        g=[w.rotate([(0,0),(2,0),(2,1),(0,1)],90),[(0,0),(2,0),(2,1),(0,1)]]
+        group=dict(elements=[1,2],max_length=300,unit="mm")
+        self.assertAlmostEqual(check_heights(g,.1,[group])["limit_sum_width_x_m_1"],.3)
+        with self.assertRaises(ValueError):check_heights(g,.1,[dict(group,max_length=299)])
+        translated=[[(x+100,y) for x,y in e] for e in g]
+        self.assertAlmostEqual(check_heights(translated,.1,[group])["limit_sum_width_x_m_1"],.3)
+
+    def test_separate_box_enables_and_single_height_selection(self):
+        root=tk.Tk();root.withdraw()
+        try:
+            app=App(root,function="sizing");editor=app.constraints
+            editor.set([dict(elements=[4],max_height=200,unit="mm"),dict(elements=[1,3],max_length=500,unit="mm",enabled=False)])
+            self.assertEqual(editor.boxes["height"].grid_info()["column"],0)
+            self.assertEqual(editor.boxes["length"].grid_info()["column"],1)
+            self.assertEqual(editor.get()[0]["elements"],[4])
+            self.assertFalse(editor.get()[1]["enabled"])
+            editor.enabled["length"].set(True);editor.enabled["height"].set(False)
+            self.assertFalse(editor.get()[0]["enabled"])
+            self.assertTrue(editor.get()[1]["enabled"])
+            editor.set_element_count(3)
+            self.assertEqual(editor.get()[0]["elements"],[3])
+        finally:root.destroy()
