@@ -200,21 +200,24 @@ def svg_geometry(geometry,ground=False):
     return "\n".join(lines+["</svg>"])
 
 def export_geometry(directory, geometry, reference, alpha=0,environment=None):
+    import io
+    from safe_files import atomic_write_text
     ground=bool((environment or {}).get("ground_effect"))
     directory.mkdir(parents=True,exist_ok=True)
-    (directory/"javafoil_geometry.txt").write_text(geometry_text(geometry))
-    (directory/"geometry.svg").write_text(svg_geometry(geometry,ground))
+    atomic_write_text(directory/"javafoil_geometry.txt",geometry_text(geometry))
+    atomic_write_text(directory/"geometry.svg",svg_geometry(geometry,ground))
     # Body rotates clockwise at positive aerodynamic angle of attack.
     operating = [rotate(p,-alpha) for p in geometry]
-    (directory/"geometry_at_best_alpha.svg").write_text(svg_geometry(operating,ground))
-    with (directory/"coordinates_m.csv").open("w",newline="") as f:
+    atomic_write_text(directory/"geometry_at_best_alpha.svg",svg_geometry(operating,ground))
+    with io.StringIO(newline="") as f:
         writer=csv.writer(f); writer.writerow(["element","point","x_m","y_m","z_m"])
         for i,pts in enumerate(geometry,1):
             for j,(x,y) in enumerate(pts):
                 writer.writerow([i,j,x*reference,y*reference,0])
-            (directory/f"element_{i}_solidworks.xyz").write_text(
+            atomic_write_text(directory/f"element_{i}_solidworks.xyz",
                 "\n".join(f"{x*reference:.12g} {y*reference:.12g} 0" for x,y in pts)+"\n")
-    (directory/"coordinates_at_best_alpha_m.json").write_text(
+        atomic_write_text(directory/"coordinates_m.csv", f.getvalue())
+    atomic_write_text(directory/"coordinates_at_best_alpha_m.json",
         json.dumps([[(x*reference,y*reference) for x,y in p] for p in operating],indent=2))
 
 def parse_polar(path, expected):

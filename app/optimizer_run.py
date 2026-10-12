@@ -15,6 +15,7 @@ from coordinate_search import run_search, SearchBudget, SearchCancelled
 from ground_effect import orient_geometry, signed_result
 from stall_models import stall_model_name
 from transition_models import transition_model_name
+from safe_files import atomic_write_text, atomic_write_bytes
 
 def run_design(config,output,base,progress,stop,solver):
     import wing_optimizer as w
@@ -127,14 +128,15 @@ def run_design(config,output,base,progress,stop,solver):
                 rw.writerow(record)
                 if geometry_best is None or row["cl"]>geometry_best["cl"]: geometry_best=record
                 if best is None or row["cl"]>best["cl"]:
+                    rf.flush()  # Preserve the winning numbers even if an export fails.
                     best=record
                     w.export_geometry(output/"best",geometry,reference,row["alpha"],environment=config["environment"])
-                    (output/"best/best.json").write_text(json.dumps(dict(result=best,reference_chord_m=reference,
+                    atomic_write_text(output/"best/best.json",json.dumps(dict(result=best,reference_chord_m=reference,
                         elements=config["elements"],angle_modes=modes,environment=config["environment"]),indent=2))
                     best_config=fixed_best_config(saved_config,params,row["alpha"],reference)
-                    (output/"best/best_config.json").write_text(json.dumps(best_config,indent=2))
-                    shutil.copyfile(output/"cases"/gid/"polar.txt",output/"best/polar.txt")
-                    shutil.copyfile(output/"cases"/gid/"run.jfscript",output/"best/source_case.jfscript")
+                    atomic_write_text(output/"best/best_config.json",json.dumps(best_config,indent=2))
+                    atomic_write_bytes(output/"best/polar.txt", (output/"cases"/gid/"polar.txt").read_bytes())
+                    atomic_write_bytes(output/"best/source_case.jfscript", (output/"cases"/gid/"run.jfscript").read_bytes())
             rf.flush()
             return geometry_best
         def solve_candidate(params,gid):
