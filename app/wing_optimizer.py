@@ -263,6 +263,27 @@ class JavaFoil:
                 raise ValueError(f"Missing {name} in {self.vendor}. Restore runtime/vendor or run tools/setup.py.")
 
     def analyze(self, geometry, settings, alphas, directory, surface_distributions=False,flow_field=False):
+        """Keep JavaFoil writes off synced folders and isolate parallel cases."""
+        import tempfile
+        from safe_files import atomic_write_bytes, atomic_write_text
+        destination=Path(directory).resolve()
+        destination.mkdir(parents=True,exist_ok=True)
+        with tempfile.TemporaryDirectory(prefix="javafoil-") as temporary:
+            workspace=Path(temporary)
+            try:
+                return self._analyze_local(geometry,settings,alphas,workspace,surface_distributions,flow_field)
+            finally:
+                for source in workspace.iterdir():
+                    if not source.is_file():continue
+                    target=destination/source.name
+                    if source.suffix==".jfscript":
+                        # Archived replay scripts must point to retained files.
+                        text=source.read_text(encoding="utf-8")
+                        text=text.replace(workspace.as_posix(),destination.as_posix())
+                        atomic_write_text(target,text)
+                    else:atomic_write_bytes(target,source.read_bytes())
+
+    def _analyze_local(self, geometry, settings, alphas, directory, surface_distributions=False,flow_field=False):
         directory.mkdir(parents=True,exist_ok=True)
         geo=directory/"geometry.txt"; geo.write_text(geometry_text(geometry))
         polar=directory/"polar.txt"
@@ -281,7 +302,7 @@ Options.StallModel({stall_model_id(settings.get("stall_model",1))});
 Options.TransitionModel({transition_model_id(settings.get("transition_model",1))});
 Geometry.Clear();
 if (!Geometry.Open({q(geo)})) throw new Error("Geometry import failed");
-Geometry.Save({q(directory/"loaded_geometry.txt")});
+if (!Geometry.Save({q(directory/"loaded_geometry.txt")})) throw new Error("Geometry export failed");
 Modify.Select(Java.to([{",".join(str(i+1) for i in range(len(geometry)))}], "int[]"));
 Polar.Analyze({re_value},{re_value},{re_value},{alphas[0]},{alphas[-1]},{step},
 {100*settings.get("transition_upper",1)},{100*settings.get("transition_lower",1)},{settings.get("roughness",0)},0);
@@ -302,8 +323,8 @@ JavaFoil.Exit();
                 extra+=f'FlowField.Analyze({alphas[0]},{field_size},1,{settings.get("field_x_steps",480)},{settings.get("field_y_steps",270)},1,0,0,0,0,0,0);'
                 extra+=f'if (!FlowField.Save({q(directory/"flow_field.txt")})) throw new Error("Flow field export failed");'
             source=source.replace("JavaFoil.Exit();",extra)
-            source="try {"+source+"} finally {JavaFoil.Exit();}"
-        script.write_text(source)
+        source="try {"+source.replace("JavaFoil.Exit();", "")+"} finally {JavaFoil.Exit();}"
+        script.write_text(source,encoding="utf-8")
         command=[self.java,"-XX:ActiveProcessorCount=1","-cp",str(self.vendor/"javafoil-compatible-v2.jar")+os.pathsep+str(self.vendor/"*"),"MH.JavaFoil.JavaFoil","Script="+str(script.resolve())]
         start=time.monotonic()
         from cpu_workers import bind_process
