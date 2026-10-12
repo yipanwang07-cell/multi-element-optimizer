@@ -525,8 +525,8 @@ class App:
             calculated,effective,elements=reynolds_estimates(sim,reference,chords)
             label=f"Estimated reference Reynolds: {calculated:,.0f}"
             if override:label+=f" | Solver override: {effective:,.0f}"
-            detail=" | ".join(f"Airfoil {i}: "+(f"{lo:,.0f}" if lo==hi else f"{lo:,.0f} to {hi:,.0f}") for i,(lo,hi) in enumerate(elements,1))
-            if override:detail="Using solver override - "+detail
+            detail="\n".join(f"Airfoil {i}: "+(f"{lo:,.0f}" if lo==hi else f"{lo:,.0f} to {hi:,.0f}") for i,(lo,hi) in enumerate(elements,1))
+            if override:detail="Using solver override\n"+detail
         except (ValueError,KeyError,TypeError,OverflowError):
             label="Estimated Reynolds: enter valid positive airspeed, chord and air properties"
             detail=""

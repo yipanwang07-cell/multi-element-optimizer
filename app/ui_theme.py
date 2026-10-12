@@ -42,6 +42,8 @@ def apply_theme(root):
     style.configure("App.TFrame",background=BG)
     style.configure("TLabel",background=SURFACE,foreground=TEXT)
     style.configure("Muted.TLabel",foreground=MUTED)
+    style.configure("ReynoldsTotal.TLabel",foreground="#122638",font=("Segoe UI",15,"bold"))
+    style.configure("ReynoldsElement.TLabel",foreground=TEXT,font=("Segoe UI",12))
     style.configure("Help.TLabel",foreground="#6b7e9e",font=("Segoe UI",10,"bold"),padding=(4,1))
     style.configure("Hero.TLabel",background=BG,foreground=TEXT,font=("Segoe UI",22,"bold"))
     style.configure("HeroSub.TLabel",background=BG,foreground=MUTED,font=("Segoe UI",11))

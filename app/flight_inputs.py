@@ -38,8 +38,8 @@ class FlightInputs:
         self.transition_model_box.pack(anchor="w")
         self.reynolds_text=tk.StringVar(value="Estimated Reynolds: enter airspeed and chord")
         self.element_reynolds_text=tk.StringVar()
-        ttk.Label(self.frame,textvariable=self.reynolds_text,style="Muted.TLabel",wraplength=850).grid(row=3,column=0,columnspan=2,sticky="w",padx=8,pady=(10,2))
-        ttk.Label(self.frame,textvariable=self.element_reynolds_text,style="Muted.TLabel",wraplength=850).grid(row=4,column=0,columnspan=2,sticky="w",padx=8,pady=(0,5))
+        ttk.Label(self.frame,textvariable=self.reynolds_text,style="ReynoldsTotal.TLabel",wraplength=850,justify="left").grid(row=3,column=0,columnspan=2,sticky="w",padx=8,pady=(18,10))
+        ttk.Label(self.frame,textvariable=self.element_reynolds_text,style="ReynoldsElement.TLabel",wraplength=850,justify="left").grid(row=4,column=0,columnspan=2,sticky="w",padx=8,pady=(0,5))
 
 
     def convert(self,kind):
