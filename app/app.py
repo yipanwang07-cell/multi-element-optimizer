@@ -410,7 +410,28 @@ class App:
             if path: Path(path).write_text(json.dumps(config,indent=2))
         except Exception as e: messagebox.showerror("Cannot save",str(e))
 
+    def preview_interim_best(self):
+        self.tabs.select(self.results_tab)
+        path=self.output/"best/best.json" if self.output else None
+        if path is None or not path.exists():
+            self.status.set("Waiting for the first valid result — optimization is still running.")
+            return
+        try:
+            snapshot=json.loads(path.read_text(encoding="utf-8"))
+            geometry=snapshot["preview_geometry"]
+            self.scene_environment=snapshot["environment"]
+            self.scene_reference=snapshot["reference_chord_m"]
+            self.scene_height_limits=snapshot.get("height_constraints",[])
+            self.geometry=geometry
+            self.draw()
+            self.status.set(f"Best so far • Cl {snapshot['result']['cl']:.5f} • optimization continues")
+        except (OSError,ValueError,KeyError):
+            self.status.set("Best result is being saved — select Preview geometry again shortly.")
+
     def preview(self):
+        if self.running:
+            self.preview_interim_best()
+            return
         try:
             config=self.config(); p,c,r,axes,alphas,clearance=engine.prepare(config,self.base)
             params={key:(min(value)+max(value))/2 for key,value in axes.items()}

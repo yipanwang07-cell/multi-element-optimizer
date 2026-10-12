@@ -132,7 +132,9 @@ def run_design(config,output,base,progress,stop,solver):
                     best=record
                     w.export_geometry(output/"best",geometry,reference,row["alpha"],environment=config["environment"])
                     atomic_write_text(output/"best/best.json",json.dumps(dict(result=best,reference_chord_m=reference,
-                        elements=config["elements"],angle_modes=modes,environment=config["environment"]),indent=2))
+                        elements=config["elements"],angle_modes=modes,environment=config["environment"],
+                        preview_geometry=[w.rotate(points,-row["alpha"]) for points in geometry],
+                        height_constraints=config.get("height_constraints",[])),indent=2))
                     best_config=fixed_best_config(saved_config,params,row["alpha"],reference)
                     atomic_write_text(output/"best/best_config.json",json.dumps(best_config,indent=2))
                     atomic_write_bytes(output/"best/polar.txt", (output/"cases"/gid/"polar.txt").read_bytes())
