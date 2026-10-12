@@ -132,7 +132,7 @@ Global physical fields include reference_chord, minimum_clearance_length and bou
 
 All angles use incidence_deg and per-element angle_mode. Legacy configurations default to absolute mode. The existing alpha_deg field specifies the reference-axis AoA offset or its optional uniform polar range.
 
-Simulation settings include reynolds, mach, transition_model, transition_upper/lower, roughness, timeout_seconds, java and javafoil_dir. Transition fractions of 1.0 allow natural transition; the wrapper converts them to JavaFoil's percentage interface. Eppler stall correction, infinite aspect ratio, zero sweep and zero ground effect are used.
+Simulation settings include reynolds, mach, transition_model, transition_upper/lower, roughness, timeout_seconds, java and javafoil_dir. Transition fractions of 1.0 allow natural transition; the wrapper converts them to JavaFoil's percentage interface. The stall model is selectable: 0 = Calcfoil, 1 = Eppler (default), 2 = None.
 
 ## Coefficient reference
 
@@ -225,7 +225,7 @@ The model is a 2D flat-ground mirror approximation for airfoil sections, not a f
 
 ## Simple simulation settings
 
-The main simulation panel has only **Wingspan** and **Relative airspeed**, with length and speed unit selectors. Airspeed supports m/s, km/h, mph and ft/s. Default ambient air is standard sea level, 15°C and 101,325 Pa, using dry-air density from the ideal-gas relation and dynamic viscosity from Sutherland's law.
+The main simulation panel has **Wingspan**, **Relative airspeed**, and a **Stall model** selector, with length and speed unit selectors. Airspeed supports m/s, km/h, mph and ft/s. Default ambient air is standard sea level, 15°C and 101,325 Pa, using dry-air density from the ideal-gas relation and dynamic viscosity from Sutherland's law.
 
 Reference Re = density × relative airspeed × fixed reference chord / dynamic viscosity. Each element's Reynolds number uses its own chord; the solver's normalized coordinates provide this scaling automatically, including during chord sweeps. Wingspan is not the Reynolds length scale. It sets JavaFoil's approximate finite-wing aspect-ratio correction: AR = wingspan / fixed reference chord, corresponding to rectangular reference area = wingspan × reference chord.
 
@@ -282,3 +282,16 @@ Airfoil height ceilings: select airfoils and enter “Must not exceed height”.
 Fine windows are centered on the winning value at the start of each fine parameter or group sweep. The center and both clipped window boundaries are always included; the final edge interval may be shorter than the requested step. Negative and zero winners use the full parameter range, like positive winners. The recorded search result includes refinement_windows with the actual center, limits, step, and percentage reference.
 
 Layout: Preview, Optimize, Stop, Open report, and Save design occupy a fixed action row below the tabs. The Simulation fidelity page scrolls independently so its contents cannot push the actions off-screen.
+
+## Stall model selection
+
+Both functions offer a **Stall model** dropdown in Simulation settings:
+**Calcfoil**, **Eppler** (default), or **None** (no stall correction). These are all
+three choices in the bundled JavaFoil version. The selection applies to every
+sweep candidate and saved-design replay, and is retained in the configuration,
+provenance and reports. Older configurations default to Eppler.
+
+For JSON setups use `simulation.stall_model`: `0`, `1`, or `2`, respectively.
+JavaFoil's [multi-element guidance](https://www.mh-aerotools.de/airfoils/jf_multi.htm)
+generally prefers Eppler. Selecting None disables the empirical correction; it
+does not make separated-flow or maximum-lift predictions more accurate.

@@ -198,3 +198,16 @@ JavaFoil and other dependencies retain their own licenses and terms. Third-party
 airfoil coordinates are documented separately in
 [coordinate sources](assets/airfoils/SOURCES.md) and `assets/airfoils/library.json`;
 the application's MIT license does not override those data sources' terms.
+
+## Stall model selection
+
+Both functions offer a **Stall model** dropdown in Simulation settings:
+**Calcfoil**, **Eppler** (default), or **None** (no stall correction). These are all
+three choices in the bundled JavaFoil version. The selection applies to every
+sweep candidate and saved-design replay, and is retained in the configuration,
+provenance and reports. Older configurations default to Eppler.
+
+For JSON setups use `simulation.stall_model`: `0`, `1`, or `2`, respectively.
+JavaFoil's [multi-element guidance](https://www.mh-aerotools.de/airfoils/jf_multi.htm)
+generally prefers Eppler. Selecting None disables the empirical correction; it
+does not make separated-flow or maximum-lift predictions more accurate.

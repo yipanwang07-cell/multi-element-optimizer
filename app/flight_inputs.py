@@ -4,6 +4,7 @@ from tkinter import ttk, messagebox
 from design_inputs import UNIT_FACTORS, length_m
 from air_conditions import SPEED_UNITS, air_properties
 from hover_help import term_label
+from stall_models import STALL_MODELS, stall_model_name
 
 class FlightInputs:
     def __init__(self,parent):
@@ -21,7 +22,13 @@ class FlightInputs:
             box=ttk.Combobox(line,textvariable=unit,values=list(choices),state="readonly",width=7)
             box.pack(side="left",padx=6)
             box.bind("<<ComboboxSelected>>",lambda e,k=kind:self.convert(k))
-        ttk.Label(self.frame,text="Sea-level air · 15°C · Reynolds calculated automatically",style="Muted.TLabel",wraplength=1040).grid(row=1,column=0,columnspan=2,sticky="w",padx=8,pady=4)
+        self.stall_model=tk.StringVar(value=stall_model_name())
+        model_frame=ttk.Frame(self.frame);model_frame.grid(row=1,column=0,columnspan=2,sticky="w",padx=8,pady=5)
+        heading,_=term_label(model_frame,"Stall model","stall_model",style="Muted.TLabel")
+        heading.pack(side="left",padx=(0,12))
+        self.stall_model_box=ttk.Combobox(model_frame,textvariable=self.stall_model,values=list(STALL_MODELS.values()),state="readonly",width=20)
+        self.stall_model_box.pack(side="left")
+        ttk.Label(self.frame,text="Sea-level air · 15°C · Reynolds calculated automatically",style="Muted.TLabel",wraplength=1040).grid(row=2,column=0,columnspan=2,sticky="w",padx=8,pady=4)
 
     def convert(self,kind):
         factors=UNIT_FACTORS if kind=="span" else SPEED_UNITS
@@ -36,9 +43,11 @@ class FlightInputs:
 
     def get(self):
         return dict(wingspan={"value":float(self.span.get()),"unit":self.span_unit.get()},
-                    relative_airspeed={"value":float(self.speed.get()),"unit":self.speed_unit.get()})
+                    relative_airspeed={"value":float(self.speed.get()),"unit":self.speed_unit.get()},
+                    stall_model=next(k for k,v in STALL_MODELS.items() if v==self.stall_model.get()))
 
     def set(self,sim,reference):
+        self.stall_model.set(stall_model_name(sim.get("stall_model",1)))
         span=sim.get("wingspan",{"value":1500,"unit":"mm"})
         unit=span.get("unit","mm") if isinstance(span,dict) else "m"
         self.span_unit.set(unit); self.old_span=unit

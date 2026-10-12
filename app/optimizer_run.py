@@ -13,6 +13,7 @@ from concurrent.futures import ThreadPoolExecutor
 from design_inputs import absolute_angles, fixed_best_config, UNIT_FACTORS
 from coordinate_search import run_search, SearchBudget, SearchCancelled
 from ground_effect import orient_geometry, signed_result
+from stall_models import stall_model_name
 
 def run_design(config,output,base,progress,stop,solver):
     import wing_optimizer as w
@@ -53,7 +54,7 @@ def run_design(config,output,base,progress,stop,solver):
     (output/"input_profiles.json").write_text(json.dumps(profiles))
     hashes={p.name:w.hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(w.VENDOR.glob("*.jar"))}
     (output/"provenance.json").write_text(json.dumps(dict(jar_sha256=hashes,reference_chord_m=reference,
-        generated=datetime.now().isoformat(),solver="JavaFoil",stall_model="Eppler",profile_sources=profile_sources,
+        generated=datetime.now().isoformat(),solver="JavaFoil",stall_model=stall_model_name(config["simulation"]["stall_model"]),profile_sources=profile_sources,
         length_units="Physical inputs converted to metres; solver geometry divided by fixed reference chord",
         simulation_conditions=config["simulation"],environment=config["environment"],objective="Cl",force_direction="downward" if config["environment"]["flip_for_downforce"] else "upward",
         angle_modes=modes,note="2D section coefficients; sampled/local optimum, not a proven global maximum"),indent=2))
@@ -208,7 +209,9 @@ def run_design(config,output,base,progress,stop,solver):
             cancelled=True; search_result=dict(method=mode,termination="cancelled",converged=False)
         finally:
             pool.shutdown(wait=True,cancel_futures=True)
-    warnings=["JavaFoil predicts section lift with an empirical stall correction. Validate high-lift maxima with CFD or experiments."]
+    warnings=[("JavaFoil stall correction is disabled (None)." if config["simulation"]["stall_model"]==2 else
+               "JavaFoil uses the "+stall_model_name(config["simulation"]["stall_model"])+" empirical stall correction.")+
+              " Validate high-lift maxima with CFD or experiments."]
     if config["simulation"].get("aspect_ratio",0)>0:
         warnings.append("Wingspan uses JavaFoil's approximate finite-span correction with rectangular reference area = wingspan × fixed reference chord; this is not a full 3D wing calculation.")
     if config["environment"]["ground_effect"]:

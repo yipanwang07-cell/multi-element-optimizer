@@ -20,6 +20,7 @@ from design_inputs import normalize_config, absolute_angles, UNIT_FACTORS
 from airfoil_library import resolve_profile, find as find_library_profile
 
 from app_paths import ROOT,EXAMPLES,VENDOR
+from stall_models import stall_model_id, stall_model_name
 if (VENDOR / "python").exists():
     sys.path.insert(0, str(VENDOR / "python"))
 from shapely.geometry import Polygon
@@ -268,7 +269,7 @@ Options.MachNumber({settings.get("mach",0)});
 Options.AspectRatio({settings.get("aspect_ratio",0)});
 Options.SweepAngle(0);
 Options.GroundEffect({int(settings.get("ground_effect",False))});
-Options.StallModel(1);
+Options.StallModel({stall_model_id(settings.get("stall_model",1))});
 Options.TransitionModel({settings.get("transition_model",1)});
 Geometry.Clear();
 if (!Geometry.Open({q(geo)})) throw new Error("Geometry import failed");
@@ -348,6 +349,7 @@ def prepare(config,base):
     sim=config.setdefault("simulation",{})
     from air_conditions import normalize_conditions
     normalize_conditions(sim,reference)
+    sim["stall_model"]=stall_model_id(sim.get("stall_model",1))
     sim["reynolds"]=positive(sim.get("reynolds",1e6),"Reynolds number")
     mach=float(sim.get("mach",0))
     sim["mach"]=mach
@@ -438,6 +440,7 @@ def write_report(output, summary):
         config=json.loads((output/"config.json").read_text())
         objective="Cl"
         sim=config.get("simulation",{})
+        text+="<p>Stall model: "+escape(stall_model_name(sim.get("stall_model",1)))+"</p>"
         if "airspeed_m_s" in sim:
             text+=f'<p>Wingspan: {sim["wingspan_m"]:g} m · Relative airspeed: {sim["airspeed_m_s"]:g} m/s · Reference Re: {sim["reynolds"]:.0f} · Mach: {sim["mach"]:.4f} · Aspect ratio: {sim["aspect_ratio"]:g}</p>'
         text+=f'<h2>Best predicted {objective}: {best["cl"]:.5f}</h2><p>Main-element aerodynamic AoA: {main_angle:g}° · Reference-axis offset: {best["alpha"]:g}° · Cd: {best["cd"]:.5f} · Cm: {best["cm"]:.5f}</p>'

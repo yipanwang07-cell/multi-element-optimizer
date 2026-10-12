@@ -4,6 +4,7 @@ from tkinter import ttk
 
 HELP={
 "coarse_divisions":"Number of intervals across the full input range. Step = (maximum - minimum) / divisions. For a 20-degree range, 10 divisions gives 2-degree steps. Larger values take more simulations.",
+"stall_model":"JavaFoil stall correction: Calcfoil, Eppler, or None (correction disabled). Eppler is the default and is generally preferred by JavaFoil for multi-element airfoils. These are empirical corrections, not resolved separated-flow simulations. The chosen model is used throughout the sweep and saved-design export.",
 "fine_step_percent":"Both the fine window and step use the full parameter range: maximum minus minimum. Search winner ±2.5% of that range, clipped to the input bounds. Default step is 0.25% of the range. For 100–300 mm and a 200 mm winner, search 195–205 mm in 0.5 mm steps. Zero and negative winners follow the same rule.",
 
 "workers":"Choose how many separate JavaFoil processes to run. Each is bound to one distinct physical core, without using both hyperthreads of a core. The selected number runs when the sweep has enough independent candidates; baseline and short batches use fewer.",

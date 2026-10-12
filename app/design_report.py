@@ -1,5 +1,6 @@
 """Design report with surface distributions and complete numerical tables."""
 from pathlib import Path
+from stall_models import stall_model_name
 import json
 from xml.sax.saxutils import escape
 import matplotlib
@@ -95,6 +96,7 @@ def create_report(folder,summary,config,original,metadata,samples):
         canvas.drawRightString(A4[0]-40,24,f"Page {doc.page}");canvas.restoreState()
     story=[para("Optimized wing design","Title"),para("Complete design record | "+metadata["created"]),
            Spacer(1,12),para("Best Cl: "+fmt(summary["best"]["cl"]),"Heading1")]
+    story.append(para("Stall model: "+stall_model_name(config.get("simulation",{}).get("stall_model",1))))
     best=summary["best"];search=summary.get("search") or {}
     story += [table([[k,best.get(k)] for k in ("cl","cd","cm","lift_cl","downforce_cl")]),
         Spacer(1,10),para("Search outcome: "+str(search.get("termination","saved")).replace("_"," ")),
