@@ -157,7 +157,8 @@ class App:
         if not initial.exists(): initial=engine.EXAMPLES/"example.json"
         self.apply_config(json.loads(initial.read_text(encoding="utf-8-sig")))
         self.update_reynolds_estimate()
-        root.after(150,self.poll)
+        self._poll_timer=root.after(150,self.poll)
+        root.bind("<Destroy>",self._cancel_poll_on_destroy,add="+")
         if host is None: root.protocol("WM_DELETE_WINDOW",self.close)
 
     def toggle_advanced(self):
@@ -532,7 +533,15 @@ class App:
         if self.flight_inputs.reynolds_text.get()!=label:self.flight_inputs.reynolds_text.set(label)
         if self.flight_inputs.element_reynolds_text.get()!=detail:self.flight_inputs.element_reynolds_text.set(detail)
 
+    def _cancel_poll_on_destroy(self,event):
+        if event.widget is self.root and self._poll_timer is not None:
+            self.root.after_cancel(self._poll_timer)
+            self._poll_timer=None
+
     def poll(self):
+        if self._poll_timer is not None:
+            self.root.after_cancel(self._poll_timer)
+        self._poll_timer=None
         self.update_reynolds_estimate()
         while not self.messages.empty():
             kind,data=self.messages.get()
@@ -565,7 +574,7 @@ class App:
                         self.scene_height_limits=self.run_height_limits
                         self.draw()
                     if (self.output/"report.html").exists(): self.report_button.configure(state="normal")
-        self.root.after(150,self.poll)
+        self._poll_timer=self.root.after(150,self.poll)
 
     def save_design(self):
         if self.running or self.saving or not self.output: return

@@ -22,6 +22,11 @@ def run_grouped_search(axes,evaluate,continuous,reference=1.,settings=None,stop=
     passes=int(settings.get("max_passes",5));tolerance=float(settings.get("cl_tolerance",.0001))
     if passes<1 or not math.isfinite(tolerance) or tolerance<=0:raise ValueError("Sweep rounds and Cl tolerance must be positive")
     current={n:settings.get("initial_parameters",{}).get(n,(min(v)+max(v))/2 if n in continuous else v[len(v)//2]) for n,v in axes.items()}
+    for name, value in current.items():
+        if not min(axes[name]) <= value <= max(axes[name]):
+            raise ValueError("Initial value outside range: " + name)
+        if name not in continuous and value not in axes[name]:
+            raise ValueError("Initial value outside discrete choices: " + name)
     cache={};calls=0;checks=[];score=-math.inf;cycle=0;converged=False;termination="pass_limit"
     def key(p):return tuple(round(p[n],14) for n in order)
     def stopped():

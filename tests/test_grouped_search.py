@@ -60,3 +60,11 @@ class GroupedSearchTests(unittest.TestCase):
             self.assertEqual(str(pane.console_scrollbar.cget("orient")),"vertical")
             self.assertTrue(pane.log.cget("yscrollcommand"))
         finally:root.destroy()
+
+    def test_invalid_start_is_rejected_before_evaluation(self):
+        for initial in (-1, 2, float("nan"), .5):
+            with self.subTest(initial=initial):
+                calls=[]
+                with self.assertRaises(ValueError):
+                    run_grouped_search({"chord_1":[0,1]}, lambda p:calls.append(p) or dict(cl=1), set(), settings=dict(initial_parameters={"chord_1":initial}))
+                self.assertEqual(calls, [])

@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 import unittest
+from unittest.mock import patch
 from ui_theme import apply_theme, attach_scroll
 
 
@@ -35,8 +36,10 @@ class DropdownScrollTests(unittest.TestCase):
                 changes = []
                 box.bind("<<ComboboxSelected>>", lambda event: changes.append(box.get()))
                 before = self.canvas.yview()
-                box.event_generate("<MouseWheel>", delta=-120, x=10, y=10)
-                self.root.update()
+                # Synthetic input targets this field even if another desktop window covers it.
+                with patch.object(self.root, "winfo_containing", return_value=box):
+                    box.event_generate("<MouseWheel>", delta=-120, x=10, y=10)
+                    self.root.update()
                 self.assertEqual(box.current(), 2)
                 self.assertEqual(changes, [])
                 self.assertGreater(self.canvas.yview()[0], before[0])
