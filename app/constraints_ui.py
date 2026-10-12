@@ -20,7 +20,7 @@ class ConstraintEditor:
         add_help(frame,"height_group")
         choices=ttk.Frame(frame);choices.pack(side="left")
         for i,var in enumerate(selected,1):
-            ttk.Checkbutton(choices,text=str(i),variable=var).pack(side="left",padx=5)
+            ttk.Checkbutton(choices,text=str(i),variable=var).grid(row=(i-1)//6,column=(i-1)%6,sticky="w",padx=5)
         ttk.Label(frame,text="Must not exceed height").pack(side="left",padx=8)
         add_help(frame,"max_height")
         unit=group.get("unit","mm")
@@ -55,4 +55,4 @@ class ConstraintEditor:
             for widget in row["choices"].winfo_children():widget.destroy()
             row["selected"]=[tk.BooleanVar(value=previous[i] if i<len(previous) else False) for i in range(count)]
             for i,var in enumerate(row["selected"],1):
-                ttk.Checkbutton(row["choices"],text=str(i),variable=var).pack(side="left",padx=5)
+                ttk.Checkbutton(row["choices"],text=str(i),variable=var).grid(row=(i-1)//6,column=(i-1)%6,sticky="w",padx=5)

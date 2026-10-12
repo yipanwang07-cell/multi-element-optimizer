@@ -184,7 +184,7 @@ class App:
         return ["NACA"]+sorted({e["family"] for e in library.airfoils()})+["Custom DAT"]
 
     def add(self,element=None):
-        if self.running or len(self.rows)>=5: return
+        if self.running: return
         if not isinstance(element,dict):
             element=dict(profile="S1223",chord={"min":75,"max":225} if self.function=="sizing" else 150,length_unit=self.global_unit.get(),
                 incidence_deg={"min":10,"max":30},angle_mode="relative",gap_length={"min":5,"max":20},overlap_length={"min":0,"max":15})
@@ -347,7 +347,7 @@ class App:
 
     def apply_config(self,config):
         config=ui_config(config)
-        if not 1<=len(config["elements"])<=5: raise ValueError("Specify 1–5 elements")
+        if not config["elements"]: raise ValueError("Specify at least one airfoil")
         self.last_config=config
         self.geometry=None
         env=config.get("environment",{})
@@ -479,7 +479,7 @@ class App:
         fills=["#eff5ff","#fff1f0","#ecfdf3","#f4efff","#fff7e6"]
         for index,element in enumerate(self.geometry):
             coords=[v for x,y in element for v in (width/2+(x-cx)*scale,height/2-(y-cy)*scale)]
-            self.canvas.create_polygon(coords,outline=colors[index],fill=fills[index],width=2)
+            self.canvas.create_polygon(coords,outline=colors[index % len(colors)],fill=fills[index % len(fills)],width=2)
         self.canvas.create_text(12,12,text="Car orientation · downforce" if self.scene_environment.get("flip_for_downforce") else "Airfoil geometry",anchor="nw",fill="#475569")
 
     def start(self):

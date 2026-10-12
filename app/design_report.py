@@ -36,7 +36,7 @@ def create_graphs(folder,geometry,reference,samples,config):
         for i in range(len(geometry)):
             for surface,style in (("upper","-"),("lower","--")):
                 rows=[r for r in samples if r["element"]==i+1 and r["surface"]==surface]
-                ax.plot([r["x_ref"] for r in rows],[r[field] for r in rows],style,color=COLORS[i],
+                ax.plot([r["x_ref"] for r in rows],[r[field] for r in rows],style,color=COLORS[i % len(COLORS)],
                     label=f"Airfoil {i+1} - {surface}",linewidth=1.6)
         chart(ax,title,"x / fixed reference chord (setup frame)",ylabel)
         if field=="cp":ax.invert_yaxis()
@@ -51,7 +51,7 @@ def geometry_drawing(samples,config):
     def xy(a,b):return 20+(a-min(x))*scale,25+(b-lo)*scale
     for i in sorted({r["element"] for r in samples}):
         points=[v for r in samples if r["element"]==i for v in xy(r["x_m"]*1000,r["y_m"]*1000)]
-        drawing.add(Polygon(points,strokeColor=colors.HexColor(COLORS[i-1]),fillColor=colors.HexColor("#f5f7fb"),strokeWidth=1))
+        drawing.add(Polygon(points,strokeColor=colors.HexColor(COLORS[(i-1) % len(COLORS)]),fillColor=colors.HexColor("#f5f7fb"),strokeWidth=1))
     if config["environment"].get("ground_effect"):
         _,ground=xy(0,0);drawing.add(Line(15,ground,500,ground,strokeColor=colors.HexColor("#64748b")))
     drawing.add(String(20,215,"Winning geometry - setup frame",fontName="ReportBold",fontSize=11))

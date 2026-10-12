@@ -1,4 +1,4 @@
-"""Five-element geometry generation and JavaFoil optimization."""
+"""Multi-element geometry generation and JavaFoil optimization."""
 from __future__ import annotations
 import argparse
 import csv
@@ -194,7 +194,7 @@ def svg_geometry(geometry,ground=False):
         lines.append(f'<text x="{x0}" y="{pad*.7}" font-size="{pad*.5}" fill="#475569">Ground (y=0)</text>')
     for i,element in enumerate(geometry):
         coords=" ".join(f"{x},{-y}" for x,y in element)
-        lines.append(f'<polygon points="{coords}" fill="{colors[i]}" fill-opacity=".15" stroke="{colors[i]}" stroke-width="{pad/20}"/>')
+        lines.append(f'<polygon points="{coords}" fill="{colors[i % len(colors)]}" fill-opacity=".15" stroke="{colors[i % len(colors)]}" stroke-width="{pad/20}"/>')
     return "\n".join(lines+["</svg>"])
 
 def export_geometry(directory, geometry, reference, alpha=0,environment=None):
@@ -324,8 +324,8 @@ def prepare(config,base):
     from ground_effect import normalize_environment
     env=normalize_environment(config)
     elements=config.get("elements",[])
-    if not 1<=len(elements)<=5:
-        raise ValueError("Specify 1 to 5 airfoils")
+    if not elements:
+        raise ValueError("Specify at least one airfoil")
     panels=int(config.get("panels_per_element",120))
     if panels < 40 or panels > 240 or panels%2:
         raise ValueError("Panels per element must be even, between 40 and 240")

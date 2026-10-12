@@ -34,7 +34,7 @@ class GeometryTests(unittest.TestCase):
         with self.assertRaises(ValueError): w.validate_geometry([large,[(x+2.01,y) for x,y in large]],.02)
         with self.assertRaises(ValueError): w.validate_geometry([large],0,dict(width=1,height=3))
     def test_validation(self):
-        c=config(); c["elements"]*=3
+        c=config(); c["elements"]=[]
         with self.assertRaises(ValueError): w.prepare(c,w.ROOT)
         with self.assertRaises(ValueError): w.values(dict(min=0,max=1,step=.3))
         with self.assertRaises(ValueError): w.values(float("nan"))
@@ -105,10 +105,11 @@ class DesktopTests(unittest.TestCase):
         root=tk.Tk(); root.withdraw()
         try:
             app=App(root)
+            initial=len(app.rows)
             for _ in range(6): app.add()
-            self.assertEqual(len(app.rows),5)
+            self.assertEqual(len(app.rows),initial+6)
             w.prepare(app.config(),w.ROOT)
-            app.remove(); self.assertEqual(len(app.rows),4)
+            app.remove(); self.assertEqual(len(app.rows),initial+5)
         finally: root.destroy()
 
 if __name__=="__main__":

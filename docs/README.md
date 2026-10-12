@@ -97,7 +97,7 @@ Grid and random modes remain available. Grid tests every discrete combination an
 6. Run optimization. The Geometry & progress tab shows each parameter sweep in physical units.
 7. Stop and retain results if needed, or open the saved report after completion.
 
-The setup tab scrolls to keep all five element cards and settings accessible on smaller screens.
+The setup tab scrolls to keep all element cards and settings accessible on smaller screens.
 
 ## Configuration and command line
 
@@ -171,7 +171,7 @@ Run all regression tests:
 
     python -m unittest discover -s . -p "test*.py" -v
 
-The suite covers source profiles, unit conversion, mixed-unit configuration loading, chained absolute/relative angles, CLI previews, family menus, five-element editor controls, collisions, saved geometry, sequential order, 11-sample coarse sweeps, a single fine stage, coupled-parameter revisits, caching, cancellation and unlimited evaluations and boundary outcomes.
+The suite covers source profiles, unit conversion, mixed-unit configuration loading, chained absolute/relative angles, CLI previews, family menus, variable-count element editor controls, collisions, saved geometry, sequential order, 11-sample coarse sweeps, a single fine stage, coupled-parameter revisits, caching, cancellation and unlimited evaluations and boundary outcomes.
 
 Actual JavaFoil checks are saved in runs/units_relative_sequential_validation. The 21-point coarse sweep used a 400 mm main element and a 4 inch second element, with a relative angle. Its final angles were 1 degree absolute and 11 degrees absolute (10 degrees relative); the physical slot placement was preserved. The winning saved configuration can reproduce the solver point.
 
@@ -202,8 +202,8 @@ Load **free_optimization_example.json** for the four-element, two-height-group e
 
 ## Two independent tools
 
-- **Adjust positions**: choose up to five airfoils with fixed chord lengths, then optimize angles, gaps, and overlaps.
-- **Size & fit**: choose up to five airfoils, set chord ranges and group height limits, then optimize size and placement.
+- **Adjust positions**: choose any number of airfoils with fixed chord lengths, then optimize angles, gaps, and overlaps.
+- **Size & fit**: choose any number of airfoils, set chord ranges and group height limits, then optimize size and placement.
 
 Each function has its own airfoils, units, settings, preview, progress, and saved results. Loading a configuration opens the matching function without changing the other tab. The search mode is selected automatically. Use each function's Airfoils & settings section to enter inputs and Preview & results to view its output.
 

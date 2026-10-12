@@ -1,9 +1,10 @@
 # Multi-element Optimizer
 
 A Windows desktop application for designing and optimizing two-dimensional,
-multi-element airfoil assemblies. Build a setup with up to five independently
+multi-element airfoil assemblies. Build a setup with any number of independently
 sized airfoils, search their arrangement for maximum **Cl**, and export a complete
-design record.
+design record. There is no app-imposed airfoil-count limit; practical capacity
+depends on JavaFoil, panel count, memory and computation time.
 
 **Current aerodynamic backend: JavaFoil.** CFD cross-checks and a higher-fidelity
 Euler + boundary-layer final-solution stage are future work, not current features.
@@ -53,7 +54,7 @@ JavaFoil remains subject to its author's terms; it is not relicensed by this rep
 
 ## Typical workflow
 
-1. Open **Adjust positions** or **Size & fit** and add one to five airfoils.
+1. Open **Adjust positions** or **Size & fit** and add one or more airfoils.
 2. Set dimensions, angle conventions and search ranges. For Size & fit, add
    height ceilings for the chosen elements. A fixed value locks a parameter.
 3. Set wingspan and relative airspeed. Standard sea-level air is the default;
