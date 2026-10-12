@@ -25,6 +25,12 @@ ACCENT="#087f8c"
 def apply_theme(root):
     if getattr(root,"_wing_theme_applied",False): return
     root._wing_theme_applied=True
+    # Closed fields must not change on wheel input. Leave events available to
+    # the surrounding panel; the open popup retains its Listbox bindings.
+    for sequence in ("<MouseWheel>", "<Button-4>", "<Button-5>"):
+        root.unbind_class("TCombobox", sequence)
+    if root.tk.call("tk", "windowingsystem") == "aqua":
+        root.unbind_class("TCombobox", "<Option-MouseWheel>")
     root.configure(background=BG)
     root.option_add("*Font",("Segoe UI",11))
     root.option_add("*TCombobox*Listbox.font",("Segoe UI",11))
