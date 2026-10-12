@@ -463,6 +463,10 @@ def write_report(output, summary):
                 index=int(key.split("_")[-1]); label=f"Absolute body angle of element {index} (degrees)"
             elif key in ("lift_cl","downforce_cl"):
                 label="Signed lift coefficient (upward positive)" if key=="lift_cl" else "Downforce coefficient (downward positive)"
+            elif key.startswith("limit_right_x_m_"):
+                index=int(key.split("_")[-1]); group=config["height_constraints"][index-1]; unit=group["unit"]
+                label=f"Rightmost point of airfoils {group['elements']} from x=0 ({unit}, limit {group['max_length']})"
+                value=value/UNIT_FACTORS[unit]
             elif key.startswith("ceiling_top_y_m_"):
                 index=int(key.split("_")[-1]); group=config["height_constraints"][index-1]; unit=group["unit"]
                 label=f"Highest point of airfoils {group['elements']} above y=0 ({unit}, ceiling {group['max_height']})"

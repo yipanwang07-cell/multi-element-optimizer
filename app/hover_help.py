@@ -23,6 +23,7 @@ HELP={
 "flip_for_downforce":"Mirror the complete wing vertically to resemble a car wing. The optimization metric stays Cl; positive Cl represents force in the selected orientation. Signed upward-positive lift is also saved.",
 "ground_clearance":"Shortest vertical distance between the lowest airfoil point and the ground. The optimizer holds this clearance for each candidate as size and placement change.",
 "height_group":"Choose the existing airfoils that must remain below this ceiling. Every selected airfoil is checked. Multiple selections also define joint sweep groups in Size & fit.",
+"geometry_limit":"Height limits constrain the highest point above y = 0. Length limits constrain the rightmost point from x = 0, not chord or total span. Select airfoils and enable either or both types. Disabled limits are ignored.",
 "max_height":"Absolute height of a horizontal ceiling above y = 0. The highest point of every selected airfoil must not exceed it, after rotation, placement, flipping, and ground clearance. With ground effect, y = 0 is the ground; otherwise it is the geometry reference plane. This is not airfoil thickness or combined vertical span.",
 "reference_chord_m":"Fixed length used to normalize geometry, calculate reference Reynolds number and compare Cl between designs. Each element's Reynolds number also scales with its own chord.",
 "reference_unit":"Unit for the lift reference length, minimum separation and overall box dimensions in Advanced settings.",

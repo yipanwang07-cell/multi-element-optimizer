@@ -9,25 +9,8 @@ depends on JavaFoil, panel count, memory and computation time.
 **Current aerodynamic backend: JavaFoil.** CFD cross-checks and a higher-fidelity
 Euler + boundary-layer final-solution stage are future work, not current features.
 
-## What it does
 
-- **Adjust positions:** keep chords fixed and optimize element angles, slot gaps
-  and overlaps.
-- **Size & fit:** optimize chord lengths and placement within geometric bounds.
-  Select any combination of elements and require their highest points to remain
-  below a specified height above the reference plane or ground.
-- Choose profiles from family-organized Selig, Eppler, Benzing, MSHD and other
-  libraries, generate NACA four-digit sections, or import coordinate files.
-  MSHD is explicitly marked as a figure-derived approximation.
-- Enter lengths in m, cm, mm, inches or feet. Set element angles either absolutely
-  or relative to the previous element; specify fixed values, ranges or lists.
-- Enable inverted car orientation and JavaFoil's flat-ground model, with ground
-  and clearance shown in the preview.
-- Use coarse sweeps followed by fine refinement. Choose the sweep resolution and
-  number of parallel JavaFoil processes, limited to available physical cores.
-- Preview geometry, stop a run, inspect its history, and save results anywhere.
-
-## Installation from source
+## Install instructions
 
 The supported desktop environment is **64-bit Windows**, with **Python 3.11 or
 newer including Tkinter**, and a **Java 17 JDK** (`java` and `javac` on PATH).
@@ -52,22 +35,97 @@ version detection and suppresses the startup age reminder, keeping the original
 JAR intact. Aerodynamic calculations are unchanged by those compatibility fixes.
 JavaFoil remains subject to its author's terms; it is not relicensed by this repo.
 
-## Typical workflow
+## Adjust positions — function description
 
-1. Open **Adjust positions** or **Size & fit** and add one or more airfoils.
-2. Set dimensions, angle conventions and search ranges. For Size & fit, add
-   height ceilings for the chosen elements. A fixed value locks a parameter.
-3. Set wingspan and relative airspeed. Standard sea-level air is the default;
-   advanced settings expose air properties, transition, panel count and overrides.
-4. Optionally enable ground effect and flip the setup for downforce.
-5. Preview the geometry, choose search fidelity and physical-core workers, then
-   select **Optimize**. Use **Stop** to retain completed results from a partial run.
-6. Select **Save design** and choose a destination folder.
+Use **Adjust positions** when the airfoil profiles and chord lengths are already
+chosen. The app searches element angles, slot gaps and overlaps for maximum **Cl**.
 
-Example configurations are in [examples](examples/). The detailed guide is in
-[docs/README.md](docs/README.md).
+- Add airfoils from the family library, generate NACA four-digit profiles, or import coordinates.
+- Enter a fixed value to lock a parameter, a range to sweep it, or a list of specific choices.
+- Choose absolute angles or angles relative to the previous element.
+- Chords stay fixed in this function. Use **Size & fit** to optimize their size.
 
-## Search and aerodynamic conventions
+## Size & fit — function description
+
+Use **Size & fit** to optimize chord lengths and arrangement within your geometry limits.
+For each group of selected airfoils, choose **Height** or **Length**, enter a limit
+and unit, and tick **Enable**. Use either type or both; disabled rows remain saved
+but do not constrain the search.
+
+| Limit | What it means |
+| --- | --- |
+| Height | Every selected airfoil's highest point must remain at or below the specified y coordinate. With ground effect, y = 0 is the ground. |
+| Length | Every selected airfoil's rightmost point must remain at or before the specified x coordinate, measured from x = 0. This is a position boundary, not chord length or overall assembly width. |
+
+For example, airfoils 1 and 2 can have a **200 mm height** limit and a **600 mm length**
+limit, while airfoils 3 and 4 use different limits. At least one limit must be enabled.
+The preview shows horizontal height lines and vertical length lines.
+
+Within selected groups, the search optimizes **chords → angles → slot gaps → overlaps**.
+Each stage carries its best valid design into the next. Collision, clearance and
+all enabled limits are checked before simulation. Later rounds revisit interacting
+parameters. Both functions use coarse sweeps followed by fine refinement.
+
+## Transition and boundary layer modelling
+
+JavaFoil supplies the aerodynamic panel/boundary-layer analysis. Transition and
+stall correction are separate choices in **Simulation settings**.
+
+### Transition models
+
+Simulation settings expose all nine JavaFoil transition criteria: Eppler 1/2,
+Michel 1/2, H12-Re(s), Granville, Drela e^n before/after 1991, and Arnal e^n.
+The default is Eppler 1. All three stall models remain independently selectable.
+JSON `simulation.transition_model` uses JavaFoil's actual IDs **1-9**, in that order.
+The previous 0-3 restriction was incorrect; 0 is not a valid JavaFoil transition ID.
+Older configurations without this setting retain the default of 1.
+
+Dropdown guidance follows the [JavaFoil boundary-layer documentation](https://www.mh-aerotools.de/airfoils/jf_analysis_boundarylayer.htm):
+Eppler 1/2: Re > 100,000; Michel 1/2: Re > 2,000,000; Granville: Re > 5,000,000.
+The other entries say "Re guidance not published". These are recommendations,
+not enforced bounds or evidence of accuracy at every Reynolds number.
+
+The reference and per-airfoil Reynolds estimates update as airspeed, chord, units,
+or air properties change. Chord ranges show minimum/maximum Reynolds values.
+An advanced Reynolds override is displayed separately from the physical estimate;
+per-element solver values then scale from that override. Invalid or incomplete
+inputs clear the estimate instead of leaving a stale value. Temperature, pressure,
+density and viscosity overrides are respected. Turbulence intensity is not a
+Reynolds-number input.
+
+### Stall models
+
+Both functions offer a **Stall model** dropdown in Simulation settings:
+**Calcfoil**, **Eppler** (default), or **None** (no stall correction). These are all
+three choices in the bundled JavaFoil version. The selection applies to every
+sweep candidate and saved-design replay, and is retained in the configuration,
+provenance and reports. Older configurations default to Eppler.
+
+For JSON setups use `simulation.stall_model`: `0`, `1`, or `2`, respectively.
+JavaFoil's [multi-element guidance](https://www.mh-aerotools.de/airfoils/jf_multi.htm)
+generally prefers Eppler. Selecting None disables the empirical correction; it
+does not make separated-flow or maximum-lift predictions more accurate.
+
+## Individual settings
+
+| Setting | Purpose |
+| --- | --- |
+| Airfoil and chord | Section profile and physical size; Size & fit can search chord ranges. |
+| Angle mode | Absolute orientation, or relative to the preceding element. |
+| Slot gap / overlap | Control separation and relative placement of adjacent elements. |
+| Length units | m, cm, mm, inches or feet; changing units preserves the physical value. |
+| Wingspan | Used for JavaFoil's approximate finite-span correction. |
+| Relative airspeed | Used with chord and air properties to estimate Reynolds number. |
+| Ground effect / car orientation | Enable the flat-ground model and optional downforce flip. |
+| Coarse divisions | Intervals across each continuous search range; default 10. |
+| Fine step | Percentage of the full parameter range used between refinement samples. |
+| Parallel processes | Number of physical-core workers; small batches may use fewer. |
+| Advanced settings | Air properties, solver panel count, overrides and maximum sweep rounds. |
+
+The overall estimated Reynolds number is emphasized, with each airfoil's estimate
+on a separate line. Question-mark tooltips explain technical controls.
+
+### Sweep resolution and conventions
 
 The default coarse step is one tenth of each continuous parameter range. Fine
 refinement searches **winner +/- 2.5% of the full parameter range width**, clipped
@@ -75,9 +133,9 @@ to the original bounds. Fine-step size is user-defined as a percentage of that
 same range width (default 0.25%). For a 100-300 mm range, a 200 mm winner is refined
 from 195 to 205 mm in 0.5 mm steps. Explicit discrete lists are not subdivided.
 
-Size & fit searches joint combinations within selected height groups, in the
+Size & fit searches joint combinations within selected constraint groups, in the
 order **chords, angles, slot gaps, overlaps**. Each stage carries its best valid
-solution into the next stage. Intersections, clearance and height ceilings are
+solution into the next stage. Intersections, clearance and enabled height and length limits are
 checked before a solver run. Later passes revisit coupled parameters.
 
 There is no simulation-count cap. Search stops on the implemented local
@@ -97,6 +155,20 @@ Wingspan controls JavaFoil's approximate aspect-ratio correction, not the Reynol
 length scale. Set the advanced aspect-ratio override to zero for a 2D section
 comparison. Ground effect is a flat-ground mirror model; it does not model a
 complete car, rotating wheels or three-dimensional diffuser flow.
+
+## Workflow
+
+1. Choose **Adjust positions** or **Size & fit**.
+2. Add airfoils, choose units and enter fixed values, ranges or discrete choices.
+3. For Size & fit, select airfoils for each geometry limit and enable the limits you need.
+4. Set airspeed and wingspan, choose transition/stall models, and check the Reynolds estimates.
+5. Optionally enable ground effect and car orientation; preview your setup.
+6. Choose simulation fidelity and worker count, then select **Optimize**.
+7. During a run, **Preview geometry** shows the latest saved best design and its Cl.
+   Before the first valid result, it shows a waiting message. **Stop** retains completed results.
+8. Select **Save results** and choose a destination folder.
+
+See [example configurations](examples/) and the [detailed guide](docs/README.md).
 
 ## Saved results
 
@@ -134,6 +206,8 @@ $env:PYTHONPATH = "$PWD\app"
 $env:PYTHONUTF8 = "1"
 .venv\Scripts\python.exe -m unittest discover -s tests -p "test*.py" -v
 ```
+
+See also [regression coverage](docs/REGRESSION_TESTING.md).
 
 ## Future plans
 
@@ -198,38 +272,3 @@ JavaFoil and other dependencies retain their own licenses and terms. Third-party
 airfoil coordinates are documented separately in
 [coordinate sources](assets/airfoils/SOURCES.md) and `assets/airfoils/library.json`;
 the application's MIT license does not override those data sources' terms.
-
-## Stall model selection
-
-Both functions offer a **Stall model** dropdown in Simulation settings:
-**Calcfoil**, **Eppler** (default), or **None** (no stall correction). These are all
-three choices in the bundled JavaFoil version. The selection applies to every
-sweep candidate and saved-design replay, and is retained in the configuration,
-provenance and reports. Older configurations default to Eppler.
-
-For JSON setups use `simulation.stall_model`: `0`, `1`, or `2`, respectively.
-JavaFoil's [multi-element guidance](https://www.mh-aerotools.de/airfoils/jf_multi.htm)
-generally prefers Eppler. Selecting None disables the empirical correction; it
-does not make separated-flow or maximum-lift predictions more accurate.
-
-## Transition models and live Reynolds estimates
-
-Simulation settings expose all nine JavaFoil transition criteria: Eppler 1/2,
-Michel 1/2, H12-Re(s), Granville, Drela e^n before/after 1991, and Arnal e^n.
-The default is Eppler 1. All three stall models remain independently selectable.
-JSON `simulation.transition_model` uses JavaFoil's actual IDs **1-9**, in that order.
-The previous 0-3 restriction was incorrect; 0 is not a valid JavaFoil transition ID.
-Older configurations without this setting retain the default of 1.
-
-Dropdown guidance follows the [JavaFoil boundary-layer documentation](https://www.mh-aerotools.de/airfoils/jf_analysis_boundarylayer.htm):
-Eppler 1/2: Re > 100,000; Michel 1/2: Re > 2,000,000; Granville: Re > 5,000,000.
-The other entries say "Re guidance not published". These are recommendations,
-not enforced bounds or evidence of accuracy at every Reynolds number.
-
-The reference and per-airfoil Reynolds estimates update as airspeed, chord, units,
-or air properties change. Chord ranges show minimum/maximum Reynolds values.
-An advanced Reynolds override is displayed separately from the physical estimate;
-per-element solver values then scale from that override. Invalid or incomplete
-inputs clear the estimate instead of leaving a stale value. Temperature, pressure,
-density and viscosity overrides are respected. Turbulence intensity is not a
-Reynolds-number input.

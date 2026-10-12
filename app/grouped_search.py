@@ -6,6 +6,7 @@ from coordinate_search import sweep_resolution,SearchCancelled,refinement_window
 def parameter_blocks(axes,groups):
     blocks=[];covered=set()
     for group in groups:
+        if not group.get("enabled",True): continue
         ids=sorted(group["elements"])
         for kind in ("chord","incidence","gap","overlap"):
             block=[f"{kind}_{i}" for i in ids if f"{kind}_{i}" in axes]

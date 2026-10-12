@@ -317,3 +317,21 @@ per-element solver values then scale from that override. Invalid or incomplete
 inputs clear the estimate instead of leaving a stale value. Temperature, pressure,
 density and viscosity overrides are respected. Turbulence intensity is not a
 Reynolds-number input.
+
+
+## Selectable geometry limits in Size & fit
+
+In **Geometry limits**, select **Height** or **Length**, tick the airfoils to constrain,
+enter a value and unit, and use **Enable** to switch the row on or off. At least one
+row must be enabled. Multiple rows can constrain overlapping groups of airfoils.
+
+Height uses the highest y coordinate above the ground/reference plane. Length uses
+the rightmost x coordinate from x = 0, not the individual chord or assembly width.
+The preview shows horizontal and vertical limit lines. Both are checked on placed,
+rotated geometry before invoking JavaFoil, including flipped ground-effect setups.
+Disabled rows are retained in saved configurations but ignored by the search.
+
+For compatibility, JSON stores both types in `height_constraints`. A height row uses
+`max_height` and `measurement: "top_y"`; a length row uses `max_length` and
+`measurement: "right_x"`. Both accept `elements`, `unit`, and `enabled` (default true).
+Older height-only configurations continue to load unchanged.

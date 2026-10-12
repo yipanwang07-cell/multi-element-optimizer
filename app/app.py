@@ -473,7 +473,12 @@ class App:
         x0=min(x for x,y in pts); x1=max(x for x,y in pts); y0=min(y for x,y in pts); y1=max(y for x,y in pts)
         ground=self.scene_environment.get("ground_effect",False)
         from design_inputs import length_m
-        ceilings=[(group,length_m(group["max_height"],group.get("unit","m"))/self.scene_reference) for group in self.scene_height_limits]
+        from geometric_constraints import constraint_kind
+        active=[g for g in self.scene_height_limits if g.get("enabled",True)]
+        ceilings=[(g,length_m(g["max_height"],g.get("unit","m"))/self.scene_reference) for g in active if constraint_kind(g)=="height"]
+        lengths=[(g,length_m(g["max_length"],g.get("unit","m"))/self.scene_reference) for g in active if constraint_kind(g)=="length"]
+        if lengths:
+            x0=min(0.,x0);x1=max(x1,max(v for g,v in lengths))
         if ground or ceilings: y0=min(0.,y0)
         if ceilings:y1=max(y1,max(value for group,value in ceilings))
         width=max(100,self.canvas.winfo_width()); height=max(100,self.canvas.winfo_height())
@@ -497,6 +502,11 @@ class App:
             selected=", ".join(map(str,group["elements"]))
             self.canvas.create_line(0,line_y,width,line_y,fill="#d97706",dash=(7,4),width=2,tags="height-ceiling")
             self.canvas.create_text(12,line_y-9,text=f"Airfoils {selected}: must stay below {value:g} {unit}",anchor="w",fill="#b45309",tags="height-ceiling")
+        for group,limit in lengths:
+            line_x=width/2+(limit-cx)*scale
+            unit=group.get("unit","m");value=length_m(group["max_length"],unit)/UNIT_FACTORS[unit]
+            self.canvas.create_line(line_x,0,line_x,height,fill="#087f8c",dash=(7,4),width=2,tags="length-limit")
+            self.canvas.create_text(line_x-8,40,text=f"Airfoils {group['elements']}: x ≤ {value:g} {unit}",anchor="ne",fill="#087f8c",tags="length-limit")
         colors=["#2563eb","#dc2626","#059669","#9333ea","#d97706"]
         fills=["#eff5ff","#fff1f0","#ecfdf3","#f4efff","#fff7e6"]
         for index,element in enumerate(self.geometry):

@@ -3,29 +3,42 @@ import math
 import random
 from design_inputs import length_m
 
+def constraint_kind(group):
+    return "length" if group.get("measurement") == "right_x" or "max_length" in group else "height"
+
+
 def validate_groups(config):
     groups=config.get("height_constraints",[])
-    if config.get("search",{}).get("mode")=="free" and not groups:
-        raise ValueError("Add at least one airfoil height ceiling for Size & fit")
+    if config.get("search",{}).get("mode")=="free" and not any(g.get("enabled",True) for g in groups):
+        raise ValueError("Enable at least one height or length constraint for Size & fit")
     count=len(config["elements"])
     for group in groups:
-        group["measurement"]="top_y"
+        if not group.get("enabled",True): continue
+        kind=constraint_kind(group)
+        group["measurement"]="right_x" if kind=="length" else "top_y"
         group.setdefault("unit",config.get("length_unit","m"))
         ids=group.get("elements",[])
         if not ids or any(type(i) is not int or not 1<=i<=count for i in ids) or len(set(ids))!=len(ids):
-            raise ValueError(f"Height ceilings need distinct existing airfoil numbers (1–{count})")
-        limit=length_m(group["max_height"],group.get("unit",config.get("length_unit","m")))
-        if limit<=0: raise ValueError("Height ceiling must be positive")
+            raise ValueError(f"Geometry limits need distinct existing airfoil numbers (1–{count})")
+        limit=length_m(group["max_"+kind],group["unit"])
+        if limit<=0: raise ValueError(kind.capitalize()+" limit must be positive")
+
 
 def check_heights(geometry,reference,groups):
+    """Check enabled height/length boundaries; keep legacy API for saved setups."""
     measurements={f"top_y_m_{i}":max(y*reference for x,y in element) for i,element in enumerate(geometry,1)}
     for n,group in enumerate(groups,1):
-        top=max(measurements[f"top_y_m_{i}"] for i in group["elements"])
-        limit=length_m(group["max_height"],group.get("unit","m"))
+        if not group.get("enabled",True): continue
+        kind=constraint_kind(group)
+        axis=0 if kind=="length" else 1
+        values={i:max(point[axis]*reference for point in geometry[i-1]) for i in group["elements"]}
+        top=max(values.values())
+        limit=length_m(group["max_"+kind],group.get("unit","m"))
         if top>limit+1e-12:
-            violating=[i for i in group["elements"] if measurements[f"top_y_m_{i}"]>limit+1e-12]
-            raise ValueError(f"Airfoil(s) {violating} exceed height ceiling {n}: highest point {top*1000:.3f} mm above y=0; ceiling {limit*1000:g} mm")
-        measurements[f"ceiling_top_y_m_{n}"]=top
+            violating=[i for i,value in values.items() if value>limit+1e-12]
+            description="rightmost point from x=0" if axis==0 else "highest point above y=0"
+            raise ValueError(f"Airfoil(s) {violating} exceed {kind} limit {n}: {description} {top*1000:.3f} mm; limit {limit*1000:g} mm")
+        measurements[f"{'limit_right_x' if axis==0 else 'ceiling_top_y'}_m_{n}"]=top
     return measurements
 
 
@@ -51,4 +64,4 @@ def feasible_seed(axes,valid,stop=None,limit=1000,seed=42):
             return candidate
         except ValueError:
             pass
-    raise ValueError(f"No feasible starting geometry found in {limit} geometry-only trials. Adjust ranges or height limits; this does not prove infeasibility.")
+    raise ValueError(f"No feasible starting geometry found in {limit} geometry-only trials. Adjust ranges or geometry limits; this does not prove infeasibility.")
