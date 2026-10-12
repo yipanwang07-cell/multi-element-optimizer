@@ -1,0 +1,20 @@
+# Local runtimes, downloaded dependencies and generated data
+/runtime/
+/runs/
+/tests/validation/
+/.venv/
+__pycache__/
+*.py[cod]
+*.log
+*.building/
+.env
+.env.*
+!.env.example
+# Research downloads and machine-specific packaging records
+/docs/reference/*
+!/docs/reference/LICENSE
+!/docs/reference/Wing_Generator.m
+/docs/bundle_info.json
+/assets/airfoils/raw/
+.DS_Store
+Thumbs.db

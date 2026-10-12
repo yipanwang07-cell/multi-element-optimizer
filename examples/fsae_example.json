@@ -1,0 +1,40 @@
+{
+  "elements": [
+    {
+      "profile": "E423",
+      "chord_m": 0.4,
+      "incidence_deg": 0
+    },
+    {
+      "profile": "S1223",
+      "chord_m": 0.14,
+      "incidence_deg": [
+        15,
+        25
+      ],
+      "gap": 0.05,
+      "overlap": 0.03
+    }
+  ],
+  "reference_chord_m": 0.4,
+  "alpha_deg": {
+    "min": 0,
+    "max": 12,
+    "step": 2
+  },
+  "panels_per_element": 120,
+  "minimum_clearance": 0.002,
+  "simulation": {
+    "reynolds": 300000,
+    "mach": 0,
+    "transition_model": 1,
+    "transition_upper": 1,
+    "transition_lower": 1,
+    "roughness": 0,
+    "timeout_seconds": 60
+  },
+  "search": {
+    "mode": "grid",
+    "seed": 42
+  }
+}

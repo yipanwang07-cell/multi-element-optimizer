@@ -1,0 +1,8 @@
+# Airfoil hashes describe the original coordinate bytes.
+*.dat -text -whitespace
+*.py text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.cmd text eol=crlf
+*.java text eol=lf
+docs/reference/* -text -whitespace

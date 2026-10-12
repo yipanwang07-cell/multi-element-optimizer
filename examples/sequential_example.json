@@ -1,0 +1,65 @@
+{
+  "schema_version": 2,
+  "length_unit": "mm",
+  "elements": [
+    {
+      "profile": "E423",
+      "length_unit": "mm",
+      "chord": 400,
+      "incidence_deg": {
+        "min": 0,
+        "max": 20
+      },
+      "angle_mode": "absolute"
+    },
+    {
+      "profile": "S1223",
+      "length_unit": "mm",
+      "chord": 140,
+      "incidence_deg": {
+        "min": 10,
+        "max": 30
+      },
+      "angle_mode": "relative",
+      "gap_length": {
+        "min": 10,
+        "max": 30
+      },
+      "overlap_length": {
+        "min": 0,
+        "max": 20
+      }
+    }
+  ],
+  "reference_chord": {
+    "value": 400,
+    "unit": "mm"
+  },
+  "minimum_clearance_length": {
+    "value": 0.8,
+    "unit": "mm"
+  },
+  "alpha_deg": 0,
+  "panels_per_element": 120,
+  "simulation": {
+    "transition_model": 1,
+    "transition_upper": 1,
+    "transition_lower": 1,
+    "roughness": 0,
+    "timeout_seconds": 60,
+    "wingspan": {
+      "value": 1500,
+      "unit": "mm"
+    },
+    "relative_airspeed": {
+      "value": 20,
+      "unit": "m/s"
+    }
+  },
+  "search": {
+    "mode": "sequential",
+    "max_passes": 5,
+    "cl_tolerance": 0.0001,
+    "seed": 42
+  }
+}

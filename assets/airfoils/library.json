@@ -1,0 +1,1389 @@
+{
+  "updated": "2026-10-11T21:52:36.093898",
+  "description": "FSAE/high-lift candidates and comparison profiles; inclusion does not imply best performance.",
+  "airfoils": [
+    {
+      "id": "be092-046",
+      "name": "Be 092-046",
+      "family": "Benzing",
+      "file": "be092-046.dat",
+      "aliases": [
+        "be092-046",
+        "be092 046",
+        "be092046"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "bac292de72c0cb301714ceb6101a7f1a1d86c117aba148c6eb4e1dcbaf7ac735",
+      "source_point_count": 33
+    },
+    {
+      "id": "be092-075",
+      "name": "Be 092-075",
+      "family": "Benzing",
+      "file": "be092-075.dat",
+      "aliases": [
+        "be092-075",
+        "be092 075",
+        "be092075"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "38f8eea08cd8ce486b889b831dce578de1c64adf402b0ac942197edb85778d58",
+      "source_point_count": 33
+    },
+    {
+      "id": "be094-056",
+      "name": "Be 094-056",
+      "family": "Benzing",
+      "file": "be094-056.dat",
+      "aliases": [
+        "be094-056",
+        "be094 056",
+        "be094056"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "a72ff658d58fe382b8e83075a27c9b7a10c6ad8f7553f89739d78e98f3259f35",
+      "source_point_count": 33
+    },
+    {
+      "id": "be103-077",
+      "name": "Be 103-077",
+      "family": "Benzing",
+      "file": "be103-077.dat",
+      "aliases": [
+        "be103-077",
+        "be103 077",
+        "be103077"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "bba38bf446c7c95b3be83de2a2a5fa691de8ded404fcc73183d68bf8ca830d6e",
+      "source_point_count": 33
+    },
+    {
+      "id": "be103-115",
+      "name": "Be 103-115",
+      "family": "Benzing",
+      "file": "be103-115.dat",
+      "aliases": [
+        "be103-115",
+        "be103 115",
+        "be103115"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "26d13e3ece0e633ea1823c2a880596470494d68be6968b8a883e34bc637a7d3a",
+      "source_point_count": 34
+    },
+    {
+      "id": "be122-046",
+      "name": "Be 122-046",
+      "family": "Benzing",
+      "file": "be122-046.dat",
+      "aliases": [
+        "be122-046",
+        "be122 046",
+        "be122046"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "9b0f1ad5acc6a5ddb422d14470d76eac54ab8a96ea0129a1ed3d000b9d15a4b6",
+      "source_point_count": 33
+    },
+    {
+      "id": "be122-075",
+      "name": "Be 122-075",
+      "family": "Benzing",
+      "file": "be122-075.dat",
+      "aliases": [
+        "be122-075",
+        "be122 075",
+        "be122075"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "c86125558bbe83f89c3ea82883953be7237c97896db639624625a6fc7044b419",
+      "source_point_count": 33
+    },
+    {
+      "id": "be122-125",
+      "name": "Be 122-125",
+      "family": "Benzing",
+      "file": "be122-125.dat",
+      "aliases": [
+        "be122-125",
+        "be122 125",
+        "be122125"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "b1758823b652a2593ac3b2ab9aa4f856c519a4fbcb6f8d50d0d2c6919543d79e",
+      "source_point_count": 33
+    },
+    {
+      "id": "be122-155",
+      "name": "Be 122-155",
+      "family": "Benzing",
+      "file": "be122-155.dat",
+      "aliases": [
+        "be122-155",
+        "be122 155",
+        "be122155"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "bca11fcfaabee1374a20966d01be5aefd5409aefd162afa85424c9a9fd51f8c6",
+      "source_point_count": 33
+    },
+    {
+      "id": "be122-185",
+      "name": "Be 122-185",
+      "family": "Benzing",
+      "file": "be122-185.dat",
+      "aliases": [
+        "be122-185",
+        "be122 185",
+        "be122185"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "dc6f5b71444f2c7bd5737a9904ac79371ee9016f86c78be34d7993ef36390fee",
+      "source_point_count": 33
+    },
+    {
+      "id": "be123-075",
+      "name": "Be 123-075",
+      "family": "Benzing",
+      "file": "be123-075.dat",
+      "aliases": [
+        "be123-075",
+        "be123 075",
+        "be123075"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "265a7df4830da6b54805311a5cbfae9184158a3228e585a19c1f33fa96a1393c",
+      "source_point_count": 33
+    },
+    {
+      "id": "be123-076",
+      "name": "Be 123-076",
+      "family": "Benzing",
+      "file": "be123-076.dat",
+      "aliases": [
+        "be123-076",
+        "be123 076",
+        "be123076"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "a97ab590d5b1b4e2843e5ef96d41cfdc3d393f715c2c102bf6625fdbcc5353ec",
+      "source_point_count": 33
+    },
+    {
+      "id": "be123-077",
+      "name": "Be 123-077",
+      "family": "Benzing",
+      "file": "be123-077.dat",
+      "aliases": [
+        "be123-077",
+        "be123 077",
+        "be123077"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "c2a8d5f4225f664c48734a45d6e03189ed3c8bf5b63a287e3c0d91849fca2c4e",
+      "source_point_count": 33
+    },
+    {
+      "id": "be123-115",
+      "name": "Be 123-115",
+      "family": "Benzing",
+      "file": "be123-115.dat",
+      "aliases": [
+        "be123-115",
+        "be123 115",
+        "be123115"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "74c48fd86d327192a726c98533e18cd62c81a831f7099472111f5e302933e98d",
+      "source_point_count": 33
+    },
+    {
+      "id": "be123-125",
+      "name": "Be 123-125",
+      "family": "Benzing",
+      "file": "be123-125.dat",
+      "aliases": [
+        "be123-125",
+        "be123 125",
+        "be123125"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "a49e62fc553fe37a9b74484cef9db031adc9e7dbec4f9e6e6ab26ef1fd0371b1",
+      "source_point_count": 33
+    },
+    {
+      "id": "be123-126",
+      "name": "Be 123-126",
+      "family": "Benzing",
+      "file": "be123-126.dat",
+      "aliases": [
+        "be123-126",
+        "be123 126",
+        "be123126"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "dd7e65e0d3d9a78cb9d5fda0a944b971d42a2d13f652ac12f4a0b6d9076b4b82",
+      "source_point_count": 33
+    },
+    {
+      "id": "be123-155",
+      "name": "Be 123-155",
+      "family": "Benzing",
+      "file": "be123-155.dat",
+      "aliases": [
+        "be123-155",
+        "be123 155",
+        "be123155"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "20e5807bd15e1384b94f9421c8caa2e999140d5e8789e94f608de6108a1c2776",
+      "source_point_count": 33
+    },
+    {
+      "id": "be123-156",
+      "name": "Be 123-156",
+      "family": "Benzing",
+      "file": "be123-156.dat",
+      "aliases": [
+        "be123-156",
+        "be123 156",
+        "be123156"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "3850ba840be8facb082e9d6efff1e5e31c270a00495e4421320a359bf987c207",
+      "source_point_count": 33
+    },
+    {
+      "id": "be124-056",
+      "name": "Be 124-056",
+      "family": "Benzing",
+      "file": "be124-056.dat",
+      "aliases": [
+        "be124-056",
+        "be124 056",
+        "be124056"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "397cad337cd50d917263fa627cb5a52cbb25ff8f2b6b685b46e0643c83408213",
+      "source_point_count": 33
+    },
+    {
+      "id": "be152-075",
+      "name": "Be 152-075",
+      "family": "Benzing",
+      "file": "be152-075.dat",
+      "aliases": [
+        "be152-075",
+        "be152 075",
+        "be152075"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "5e4d542817a33244d20c2e5fcb55b3e699cee8fe87221377a02aa6cd930db54a",
+      "source_point_count": 33
+    },
+    {
+      "id": "be152-105",
+      "name": "Be 152-105",
+      "family": "Benzing",
+      "file": "be152-105.dat",
+      "aliases": [
+        "be152-105",
+        "be152 105",
+        "be152105"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "ffdd128ae4b5df438c5e42514dc60861282eb554020634e2ab0d71d5792c2edd",
+      "source_point_count": 33
+    },
+    {
+      "id": "be152-125",
+      "name": "Be 152-125",
+      "family": "Benzing",
+      "file": "be152-125.dat",
+      "aliases": [
+        "be152-125",
+        "be152 125",
+        "be152125"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "59047d5892b6a16fc265e7b650e51cad9589e8c4bb22e54af6c1b40adaee7de4",
+      "source_point_count": 33
+    },
+    {
+      "id": "be152-155",
+      "name": "Be 152-155",
+      "family": "Benzing",
+      "file": "be152-155.dat",
+      "aliases": [
+        "be152-155",
+        "be152 155",
+        "be152155"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "bf27794a3a7bb58e271a29344c4de6e2e97e9787e934cd42d21da1f52dd4af32",
+      "source_point_count": 33
+    },
+    {
+      "id": "be152-175",
+      "name": "Be 152-175",
+      "family": "Benzing",
+      "file": "be152-175.dat",
+      "aliases": [
+        "be152-175",
+        "be152 175",
+        "be152175"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "cb63fa5d85c25251f16ae871bedd5c4f78f2e677218dbdaa09e84ae1081690a7",
+      "source_point_count": 33
+    },
+    {
+      "id": "be153-055",
+      "name": "Be 153-055",
+      "family": "Benzing",
+      "file": "be153-055.dat",
+      "aliases": [
+        "be153-055",
+        "be153 055",
+        "be153055"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "113ca35543e74f9fab390d7fd79bc3a017e45a4bfe7962844e6c3ec9e3d7e44b",
+      "source_point_count": 33
+    },
+    {
+      "id": "be153-056",
+      "name": "Be 153-056",
+      "family": "Benzing",
+      "file": "be153-056.dat",
+      "aliases": [
+        "be153-056",
+        "be153 056",
+        "be153056"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "56a819a1106a58e35e9ff8e40e9471060cb6e8a90d2f9b8b43ddaaa05e146bea",
+      "source_point_count": 33
+    },
+    {
+      "id": "be153-075",
+      "name": "Be 153-075",
+      "family": "Benzing",
+      "file": "be153-075.dat",
+      "aliases": [
+        "be153-075",
+        "be153 075",
+        "be153075"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "eda69fa675076b570becee106e8a75282c8f3f17498690065a74a2536e7494b1",
+      "source_point_count": 33
+    },
+    {
+      "id": "be153-076",
+      "name": "Be 153-076",
+      "family": "Benzing",
+      "file": "be153-076.dat",
+      "aliases": [
+        "be153-076",
+        "be153 076",
+        "be153076"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "3e78094975317d78455f36a4cdce0fac62be317391ce558a6d021b148ad086ab",
+      "source_point_count": 33
+    },
+    {
+      "id": "be153-077",
+      "name": "Be 153-077",
+      "family": "Benzing",
+      "file": "be153-077.dat",
+      "aliases": [
+        "be153-077",
+        "be153 077",
+        "be153077"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "3d9ff55df571b8e997a961ed4d560f1ad1aa93f93df73166acab3b0e4da1f07f",
+      "source_point_count": 33
+    },
+    {
+      "id": "be153-105",
+      "name": "Be 153-105",
+      "family": "Benzing",
+      "file": "be153-105.dat",
+      "aliases": [
+        "be153-105",
+        "be153 105",
+        "be153105"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "ca0ee635e181b70545a3d3c8016dc71fbc9d7187e796dae40a50d990bcb79912",
+      "source_point_count": 33
+    },
+    {
+      "id": "be153-106",
+      "name": "Be 153-106",
+      "family": "Benzing",
+      "file": "be153-106.dat",
+      "aliases": [
+        "be153-106",
+        "be153 106",
+        "be153106"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "d2c7787aacd17bc53e6c85222be2445538c3cd8c3a049ac716675b6862f6aa02",
+      "source_point_count": 33
+    },
+    {
+      "id": "be153-115",
+      "name": "Be 153-115",
+      "family": "Benzing",
+      "file": "be153-115.dat",
+      "aliases": [
+        "be153-115",
+        "be153 115",
+        "be153115"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "e9a35b9fbfe65e35c4deddbda420add3c08f8343a9a9e598891cbb0e62172bdf",
+      "source_point_count": 33
+    },
+    {
+      "id": "be153-125",
+      "name": "Be 153-125",
+      "family": "Benzing",
+      "file": "be153-125.dat",
+      "aliases": [
+        "be153-125",
+        "be153 125",
+        "be153125"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "0286055849ac2062577f6e7c50be7f7a5f93038b076eac6d6ca8cc9a670d9de4",
+      "source_point_count": 33
+    },
+    {
+      "id": "be153-126",
+      "name": "Be 153-126",
+      "family": "Benzing",
+      "file": "be153-126.dat",
+      "aliases": [
+        "be153-126",
+        "be153 126",
+        "be153126"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "13a16fb5bb415dea0fd4942f7cffd1ba172085e46ebb4c549bcf731c9a8346b1",
+      "source_point_count": 33
+    },
+    {
+      "id": "be153-155",
+      "name": "Be 153-155",
+      "family": "Benzing",
+      "file": "be153-155.dat",
+      "aliases": [
+        "be153-155",
+        "be153 155",
+        "be153155"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "e695e4e80c56d350dc69069665c56eecff35cbe6a44bc7a3bd2ead9e16395b41",
+      "source_point_count": 33
+    },
+    {
+      "id": "be153-156",
+      "name": "Be 153-156",
+      "family": "Benzing",
+      "file": "be153-156.dat",
+      "aliases": [
+        "be153-156",
+        "be153 156",
+        "be153156"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "e5cd2f931bd8dd9a3c8413f2dcc505849d9da865d5a781e603d8167aae835be3",
+      "source_point_count": 33
+    },
+    {
+      "id": "be153-175",
+      "name": "Be 153-175",
+      "family": "Benzing",
+      "file": "be153-175.dat",
+      "aliases": [
+        "be153-175",
+        "be153 175",
+        "be153175"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "b0bdaf3d1a7d19d3682790766993560599c39f5179d8ccfa5c1dacd79cf1d6ac",
+      "source_point_count": 33
+    },
+    {
+      "id": "be153-176",
+      "name": "Be 153-176",
+      "family": "Benzing",
+      "file": "be153-176.dat",
+      "aliases": [
+        "be153-176",
+        "be153 176",
+        "be153176"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "d10966f1037d43a95de497ea2106c9bc07c9a84d1b773a6b77a0346aaa50919d",
+      "source_point_count": 33
+    },
+    {
+      "id": "be154-056",
+      "name": "Be 154-056",
+      "family": "Benzing",
+      "file": "be154-056.dat",
+      "aliases": [
+        "be154-056",
+        "be154 056",
+        "be154056"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "1383d26297abf2b5c7c2de6046479ad4a917a73049d3a7c066aef5908885ac07",
+      "source_point_count": 33
+    },
+    {
+      "id": "be162-104",
+      "name": "Be 162-104",
+      "family": "Benzing",
+      "file": "be162-104.dat",
+      "aliases": [
+        "be162-104",
+        "be162 104",
+        "be162104"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "9df0fc4e2a30ff29803526be64bc9ada188090ae0cd814bb5937f0a0b48cf81b",
+      "source_point_count": 33
+    },
+    {
+      "id": "be162-124",
+      "name": "Be 162-124",
+      "family": "Benzing",
+      "file": "be162-124.dat",
+      "aliases": [
+        "be162-124",
+        "be162 124",
+        "be162124"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "1d303946f90bd69e5b38321bb75acb802b2c6d9dc1432bb2c22f3fcdce6b0f33",
+      "source_point_count": 33
+    },
+    {
+      "id": "be162-144",
+      "name": "Be 162-144",
+      "family": "Benzing",
+      "file": "be162-144.dat",
+      "aliases": [
+        "be162-144",
+        "be162 144",
+        "be162144"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "f2ad2ec9121a387359eb360f56c50cf14ceee393cb3a8f35c19016523ff33335",
+      "source_point_count": 33
+    },
+    {
+      "id": "be183-055",
+      "name": "Be 183-055",
+      "family": "Benzing",
+      "file": "be183-055.dat",
+      "aliases": [
+        "be183-055",
+        "be183 055",
+        "be183055"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "d7dc3a77e815902c89f085c783ad82ac801ba81899eed87e3b04e69368e863cb",
+      "source_point_count": 33
+    },
+    {
+      "id": "be183-056",
+      "name": "Be 183-056",
+      "family": "Benzing",
+      "file": "be183-056.dat",
+      "aliases": [
+        "be183-056",
+        "be183 056",
+        "be183056"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "f605bb9b302e2b4d636ce5e213d096d5b56cbf93c2c7bb0e2c59bd50cd23c606",
+      "source_point_count": 33
+    },
+    {
+      "id": "be183-075",
+      "name": "Be 183-075",
+      "family": "Benzing",
+      "file": "be183-075.dat",
+      "aliases": [
+        "be183-075",
+        "be183 075",
+        "be183075"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "b312c4c22baf7a2381b328a3eb049b8a9a171db01a7d23cdf97e035114fc016c",
+      "source_point_count": 33
+    },
+    {
+      "id": "be183-076",
+      "name": "Be 183-076",
+      "family": "Benzing",
+      "file": "be183-076.dat",
+      "aliases": [
+        "be183-076",
+        "be183 076",
+        "be183076"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "a8ed7bf70e2fcbbc8d0b99b00a8a4b10a742c68ee7e691ad37a844bdff253e41",
+      "source_point_count": 33
+    },
+    {
+      "id": "be183-105",
+      "name": "Be 183-105",
+      "family": "Benzing",
+      "file": "be183-105.dat",
+      "aliases": [
+        "be183-105",
+        "be183 105",
+        "be183105"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "bb21241ac684743bfdc432f7112065304e6b81d19db66d2cc987992144fa13ee",
+      "source_point_count": 33
+    },
+    {
+      "id": "be183-106",
+      "name": "Be 183-106",
+      "family": "Benzing",
+      "file": "be183-106.dat",
+      "aliases": [
+        "be183-106",
+        "be183 106",
+        "be183106"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "de7d8fb53a7064496f0969039d78dfae4e4978cb62632d73cd773b805fac263b",
+      "source_point_count": 33
+    },
+    {
+      "id": "be183-125",
+      "name": "Be 183-125",
+      "family": "Benzing",
+      "file": "be183-125.dat",
+      "aliases": [
+        "be183-125",
+        "be183 125",
+        "be183125"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "8794f85041f233cba0b684cb90dd81d7f09c55a7f00528eb0c78632ca9ed0c06",
+      "source_point_count": 33
+    },
+    {
+      "id": "be183-126",
+      "name": "Be 183-126",
+      "family": "Benzing",
+      "file": "be183-126.dat",
+      "aliases": [
+        "be183-126",
+        "be183 126",
+        "be183126"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "81b17425124b6a1e39493c96c869bd0f300fd5558fc7a6435267e8ca64b8b76c",
+      "source_point_count": 33
+    },
+    {
+      "id": "be183-155",
+      "name": "Be 183-155",
+      "family": "Benzing",
+      "file": "be183-155.dat",
+      "aliases": [
+        "be183-155",
+        "be183 155",
+        "be183155"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "3998d691410b60a48ccfdfc6252ef558e5005f054a851eefe1e12afd9d809e84",
+      "source_point_count": 33
+    },
+    {
+      "id": "be183-156",
+      "name": "Be 183-156",
+      "family": "Benzing",
+      "file": "be183-156.dat",
+      "aliases": [
+        "be183-156",
+        "be183 156",
+        "be183156"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "b273b46579da99c103635f892a8645874b66030956826a249eb8638a5ded828c",
+      "source_point_count": 33
+    },
+    {
+      "id": "be183-175",
+      "name": "Be 183-175",
+      "family": "Benzing",
+      "file": "be183-175.dat",
+      "aliases": [
+        "be183-175",
+        "be183 175",
+        "be183175"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "be3e2011ff999381e532737f6f8f4e1becc004183669cfb97b02227100634859",
+      "source_point_count": 33
+    },
+    {
+      "id": "be183-176",
+      "name": "Be 183-176",
+      "family": "Benzing",
+      "file": "be183-176.dat",
+      "aliases": [
+        "be183-176",
+        "be183 176",
+        "be183176"
+      ],
+      "status": "available",
+      "source_url": "https://github.com/nick-morse/MultiElementWingGenerator/blob/master/airfoildatabase.mat",
+      "reference_url": "http://www.benzing.it/enrico.profili.htm",
+      "method": "Exact tabulated coordinates from the original generator's MATLAB database; retained as polygonal source points",
+      "sha256": "4d05b74f10962f324d95bb46f93bc42f78012df37f49a938db8c368894ba91f5",
+      "source_point_count": 33
+    },
+    {
+      "id": "ch10sm",
+      "name": "CH10SM",
+      "family": "Comparison",
+      "file": "ch10sm.dat",
+      "aliases": [
+        "ch10sm"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/ch10sm.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "382fed5043fcde42471596334ad6f4526a69e836757d4ddd6b977cb7d7d63a01",
+      "source_point_count": 79
+    },
+    {
+      "id": "goe652",
+      "name": "GOE652",
+      "family": "Comparison",
+      "file": "goe652.dat",
+      "aliases": [
+        "goe652"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/goe652.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "880dd656993f83128749fcf384051417cc9e20889d66149eeccfb91c073041ee",
+      "source_point_count": 33
+    },
+    {
+      "id": "lnv109a",
+      "name": "LNV109A",
+      "family": "Comparison",
+      "file": "lnv109a.dat",
+      "aliases": [
+        "lnv109a"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/lnv109a.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "138e14922be70ee6007c6582e3a61b6422f3639779dd14ae27d7d8bc5f21540c",
+      "source_point_count": 101
+    },
+    {
+      "id": "e193",
+      "name": "E193",
+      "family": "Eppler",
+      "file": "e193.dat",
+      "aliases": [
+        "e193"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/e193.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "578936e6d404db02511c01ea52cf5845fd17a2b3c1b8a8eaaffaf5889b3f553a",
+      "source_point_count": 61
+    },
+    {
+      "id": "e205",
+      "name": "E205",
+      "family": "Eppler",
+      "file": "e205.dat",
+      "aliases": [
+        "e205"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/e205.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "1c3803f85baba50351a0885820d94c2e4aaff7aa4dce4f320da85b166809e131",
+      "source_point_count": 61
+    },
+    {
+      "id": "e211",
+      "name": "E211",
+      "family": "Eppler",
+      "file": "e211.dat",
+      "aliases": [
+        "e211"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/e211.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "7d9f998c2268ae08db0851a2879d57443124f3ac5ac8c3aec5404d2a335ee223",
+      "source_point_count": 61
+    },
+    {
+      "id": "e214",
+      "name": "E214",
+      "family": "Eppler",
+      "file": "e214.dat",
+      "aliases": [
+        "e214"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/e214.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "2a9b239daaaf716466eb9cbca40c0981bc786cd1de8a777f804a764cfeb0e0b2",
+      "source_point_count": 61
+    },
+    {
+      "id": "e374",
+      "name": "E374",
+      "family": "Eppler",
+      "file": "e374.dat",
+      "aliases": [
+        "e374"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/e374.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "7a71c602deedb84a6c6c4dba7026eaaed5192e57fb91fc7701badd9c0d404f98",
+      "source_point_count": 61
+    },
+    {
+      "id": "e387",
+      "name": "E387",
+      "family": "Eppler",
+      "file": "e387.dat",
+      "aliases": [
+        "e387"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/e387.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "98aa8a4076edbfd1c52e3a2d0cf17b1ef1cbc51ae5da3ab8e5361047b89ee523",
+      "source_point_count": 61
+    },
+    {
+      "id": "e420",
+      "name": "E420",
+      "family": "Eppler",
+      "file": "e420.dat",
+      "aliases": [
+        "e420"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/e420.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "ba5b3bf52485a5b578ad7707058eb0aaa05a5574dbeccee6e881edaf412bcf87",
+      "source_point_count": 72
+    },
+    {
+      "id": "e421",
+      "name": "E421",
+      "family": "Eppler",
+      "file": "e421.dat",
+      "aliases": [
+        "e421"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/e421.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "e7dab612c262d57ef0acee920c5082de7f02e048191afcb53f80de2b17f16f29",
+      "source_point_count": 72
+    },
+    {
+      "id": "e422",
+      "name": "E422",
+      "family": "Eppler",
+      "file": "e422.dat",
+      "aliases": [
+        "e422"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/e422.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "41e1fd8e5a9a8b99a5de3e7bc8aae002180f842820a9941fd5bc011cd45e29d1",
+      "source_point_count": 72
+    },
+    {
+      "id": "e423",
+      "name": "E423",
+      "family": "Eppler",
+      "file": "e423.dat",
+      "aliases": [
+        "e423"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/e423.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "3fc3876a02bc9112089f80603c80bddfeb71885b276977fe69985e207279421c",
+      "source_point_count": 72
+    },
+    {
+      "id": "e426",
+      "name": "E426",
+      "family": "Eppler",
+      "file": "e426.dat",
+      "aliases": [
+        "e426"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/e426.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "0dcbac4441277fe616dea82f9deb68b6e7d6ac1728e5d8b315d261688f4b3e52",
+      "source_point_count": 40
+    },
+    {
+      "id": "e428",
+      "name": "E428",
+      "family": "Eppler",
+      "file": "e428.dat",
+      "aliases": [
+        "e428"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/e428.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "888a62901071994bd6effe6de6ddf299eaef74040d0eeed29fce33f118dd5be4",
+      "source_point_count": 40
+    },
+    {
+      "id": "e664",
+      "name": "E664",
+      "family": "Eppler",
+      "file": "e664.dat",
+      "aliases": [
+        "e664"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/e664.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "ba60b6f5e1fa5cee0fc679a2e74c6864f77bd2006ac5eb23c6fe4136e034dd03",
+      "source_point_count": 61
+    },
+    {
+      "id": "mshd",
+      "name": "MSHD (figure-derived)",
+      "family": "Motorsport",
+      "status": "available",
+      "file": "mshd.dat",
+      "source_url": "https://repository.lib.ncsu.edu/bitstreams/56e62390-f800-4126-af2a-f06873e998d9/download",
+      "note": "Approximate published-outline recovery. Use the author's original DAT if available.",
+      "aliases": [
+        "MSHD",
+        "Motor Sports High Downforce"
+      ],
+      "source_point_count": 194,
+      "sha256": "7947620318980e3bf43d95edaa1b2ad3da370a4252c51d2080da28fa00ae24c7",
+      "method": "Vector-derived approximation from Pakkam's original Figure 3.1 (printed p.30); matches Table 3.1 within figure precision.",
+      "validation": {
+        "max_thickness": 0.12922803489405207,
+        "thickness_x": 0.164,
+        "max_camber": 0.136842092833453,
+        "camber_x": 0.524
+      },
+      "source_pdf_sha256": "5c9a326c91ef15162ba399a312a52d6c421d2ebe40e637d59a920cbcb18fa653"
+    },
+    {
+      "id": "s1091",
+      "name": "S1091",
+      "family": "Selig",
+      "file": "s1091.dat",
+      "aliases": [
+        "s1091"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/s1091.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "93c6627fb7c7aaaeabb2de3900eabf82fcecad0ba39be09872e8fb6fc20a5096",
+      "source_point_count": 81
+    },
+    {
+      "id": "s1210",
+      "name": "S1210",
+      "family": "Selig",
+      "file": "s1210.dat",
+      "aliases": [
+        "s1210"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/s1210.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "44f9c005b78f0fdc0c6dd6b68488b9d8ccf8ffe984c99f42ac68928dc1ed674b",
+      "source_point_count": 81
+    },
+    {
+      "id": "s1221",
+      "name": "S1221",
+      "family": "Selig",
+      "file": "s1221.dat",
+      "aliases": [
+        "s1221"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/s1221.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "8209162b7b4d2b926cb39e6f2b5b96c3e77e633727b396c4aa43e09531a23f8a",
+      "source_point_count": 72
+    },
+    {
+      "id": "s1223",
+      "name": "S1223",
+      "family": "Selig",
+      "file": "s1223.dat",
+      "aliases": [
+        "s1223"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/s1223.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "f2e06d165d6244d2fc1c7dde9e46c46c4d42a70b183620ea02fd693fbfa5cf53",
+      "source_point_count": 81
+    },
+    {
+      "id": "s1223rtl",
+      "name": "S1223 RTL",
+      "family": "Selig",
+      "file": "s1223rtl.dat",
+      "aliases": [
+        "s1223rtl"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/s1223rtl.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "fb150d8de6c2ebb4b8c26a8e245148bfbc788339e47e38634364942bba329635",
+      "source_point_count": 100
+    },
+    {
+      "id": "s5010",
+      "name": "S5010",
+      "family": "Selig",
+      "file": "s5010.dat",
+      "aliases": [
+        "s5010"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/s5010.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "763b2906cea5eaa582743f0150b3a83a54fff25eae629f6e285741e95c3b5fa2",
+      "source_point_count": 61
+    },
+    {
+      "id": "s7012",
+      "name": "S7012",
+      "family": "Selig",
+      "file": "s7012.dat",
+      "aliases": [
+        "s7012"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/s7012.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "846854601cf55f009ca4a252e6611cb4445a7b3e2434f0f33d0fc2aff50dc15d",
+      "source_point_count": 81
+    },
+    {
+      "id": "s7055",
+      "name": "S7055",
+      "family": "Selig",
+      "file": "s7055.dat",
+      "aliases": [
+        "s7055"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/s7055.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "d0d4971b43bfe63079c57f65d3f3acc95d3c1345ab6a9b38aaa7320fc41cf705",
+      "source_point_count": 81
+    },
+    {
+      "id": "sd7032",
+      "name": "SD7032",
+      "family": "Selig",
+      "file": "sd7032.dat",
+      "aliases": [
+        "sd7032"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/sd7032.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "0ac0dda64890b21cb8ccbee8d7e347f81925152bffac04b1cf6b981e53163aaf",
+      "source_point_count": 61
+    },
+    {
+      "id": "sd8020",
+      "name": "SD8020",
+      "family": "Selig",
+      "file": "sd8020.dat",
+      "aliases": [
+        "sd8020"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/sd8020.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "102c8b1d93c5b02ae547b27a50340ff326975e0c75ba13adfe737cc7812c3ea7",
+      "source_point_count": 61
+    },
+    {
+      "id": "fx63137",
+      "name": "FX 63-137",
+      "family": "Wortmann",
+      "file": "fx63137.dat",
+      "aliases": [
+        "fx63137"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/fx63137.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "03832e0a64cf5b35860ccb73f3b58544d117527cc45bff6134d61e5a6c70d673",
+      "source_point_count": 97
+    },
+    {
+      "id": "fx74cl5140",
+      "name": "FX 74-CL5-140",
+      "family": "Wortmann",
+      "file": "fx74cl5140.dat",
+      "aliases": [
+        "fx74cl5140"
+      ],
+      "source_url": "https://m-selig.ae.illinois.edu/ads/coord_seligFmt/fx74cl5140.dat",
+      "reference_url": "https://m-selig.ae.illinois.edu/ads/coord_database.html",
+      "status": "available",
+      "method": "UIUC Selig-format coordinates; no point editing",
+      "sha256": "e6c3715dea5d0594645e3524ce8c6675d4ebb4603e86222424de490bb429c37a",
+      "source_point_count": 87
+    }
+  ],
+  "rejected_sources": [
+    {
+      "id": "s3021",
+      "reason": "Profile outline is self-intersecting or degenerate"
+    },
+    {
+      "id": "sd7003",
+      "reason": "Profile outline is self-intersecting or degenerate"
+    },
+    {
+      "id": "sd7062",
+      "reason": "Profile outline is self-intersecting or degenerate"
+    },
+    {
+      "id": "sd7080",
+      "reason": "Profile outline is self-intersecting or degenerate"
+    },
+    {
+      "id": "be152-046",
+      "reason": "Profile outline is self-intersecting or degenerate"
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "schema_version": 2,
+  "length_unit": "mm",
+  "reference_chord": 400,
+  "minimum_clearance_length": 1,
+  "alpha_deg": 0,
+  "panels_per_element": 120,
+  "simulation": {
+    "wingspan": {
+      "value": 1500,
+      "unit": "mm"
+    },
+    "relative_airspeed": {
+      "value": 20,
+      "unit": "m/s"
+    }
+  },
+  "height_constraints": [
+    {
+      "elements": [
+        1,
+        2
+      ],
+      "max_height": 200,
+      "unit": "mm"
+    },
+    {
+      "elements": [
+        3,
+        4
+      ],
+      "max_height": 200,
+      "unit": "mm"
+    }
+  ],
+  "search": {
+    "mode": "free",
+    "max_passes": 5
+  },
+  "elements": [
+    {
+      "profile": "S1223",
+      "chord": {
+        "min": 250,
+        "max": 450
+      },
+      "incidence_deg": {
+        "min": 0,
+        "max": 15
+      },
+      "angle_mode": "absolute"
+    },
+    {
+      "profile": "S1223",
+      "chord": {
+        "min": 80,
+        "max": 180
+      },
+      "incidence_deg": {
+        "min": 5,
+        "max": 20
+      },
+      "angle_mode": "relative",
+      "gap_length": {
+        "min": 10,
+        "max": 30
+      },
+      "overlap_length": {
+        "min": 0,
+        "max": 20
+      }
+    },
+    {
+      "profile": "S1223",
+      "chord": {
+        "min": 80,
+        "max": 180
+      },
+      "incidence_deg": {
+        "min": 5,
+        "max": 20
+      },
+      "angle_mode": "relative",
+      "gap_length": {
+        "min": 10,
+        "max": 30
+      },
+      "overlap_length": {
+        "min": 0,
+        "max": 20
+      }
+    },
+    {
+      "profile": "S1223",
+      "chord": {
+        "min": 80,
+        "max": 180
+      },
+      "incidence_deg": {
+        "min": 5,
+        "max": 20
+      },
+      "angle_mode": "relative",
+      "gap_length": {
+        "min": 10,
+        "max": 30
+      },
+      "overlap_length": {
+        "min": 0,
+        "max": 20
+      }
+    }
+  ]
+}

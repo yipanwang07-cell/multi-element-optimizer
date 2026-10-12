@@ -1,0 +1,46 @@
+{
+  "elements": [
+    {
+      "profile": "NACA 2412",
+      "chord_m": 1,
+      "incidence_deg": 0
+    },
+    {
+      "profile": "NACA 4412",
+      "chord_m": 0.35,
+      "incidence_deg": [
+        10,
+        20
+      ],
+      "gap": [
+        0.03,
+        0.06
+      ],
+      "overlap": [
+        0.03,
+        0.06
+      ]
+    }
+  ],
+  "reference_chord_m": 1,
+  "alpha_deg": {
+    "min": 0,
+    "max": 18,
+    "step": 2
+  },
+  "panels_per_element": 120,
+  "minimum_clearance": 0.002,
+  "simulation": {
+    "reynolds": 1000000,
+    "mach": 0,
+    "transition_model": 1,
+    "transition_upper": 1,
+    "transition_lower": 1,
+    "roughness": 0,
+    "timeout_seconds": 60
+  },
+  "search": {
+    "mode": "grid",
+    "seed": 42
+  }
+}

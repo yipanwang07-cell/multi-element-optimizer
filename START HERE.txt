@@ -1,0 +1,16 @@
+MULTI-ELEMENT OPTIMIZER
+
+Double-click Launch.cmd to open the app.
+The local portable copy includes Python, Java and dependencies.
+For a GitHub source checkout, follow README.md to install dependencies first.
+
+Adjust positions: optimize angles, gaps and overlaps with fixed chords.
+Size & fit: optimize chords and placement under selected-airfoil height ceilings.
+Use examples/ for ready-to-load configurations. Hover over ? for help.
+
+Save design creates a folder at your chosen location with a PDF, two 4K
+surface-distribution graphs, CAD geometry, numerical data and sweep history.
+
+Source: app/    Airfoils: assets/    Guide: docs/README.md
+Tests: tools/Run Tests.cmd    Local results: runs/
+Keep these folders together. Windows 64-bit is the supported desktop platform.
