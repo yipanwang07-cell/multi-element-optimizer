@@ -10,7 +10,7 @@ import webbrowser
 import wing_optimizer as engine
 import airfoil_library as library
 from library_dialog import LibraryDialog
-from design_inputs import UNIT_FACTORS, unit_name, map_values, ui_config, absolute_angles
+from design_inputs import UNIT_FACTORS, unit_name, map_values, ui_config, absolute_angles, length_m
 from hover_help import add_help,term_label
 
 def parse(text):
@@ -125,7 +125,6 @@ class App:
             ("aspect_ratio_override","Aspect ratio override (0 = 2D)","",False),
             ("transition_upper","Upper transition (0–1)","1",False),
             ("transition_lower","Lower transition (0–1)","1",False),
-            ("transition_model","Transition model (0–3)","1",False),
             ("roughness","Roughness (0–3)","0",False),
             ("timeout_seconds","Solver timeout (seconds)","120",False)]
         for index,(key,title,default,is_length) in enumerate(fields):
@@ -157,6 +156,7 @@ class App:
         initial=engine.EXAMPLES/("free_optimization_example.json" if function=="sizing" else "sequential_example.json")
         if not initial.exists(): initial=engine.EXAMPLES/"example.json"
         self.apply_config(json.loads(initial.read_text(encoding="utf-8-sig")))
+        self.update_reynolds_estimate()
         root.after(150,self.poll)
         if host is None: root.protocol("WM_DELETE_WINDOW",self.close)
 
@@ -323,7 +323,7 @@ class App:
         sim=config.setdefault("simulation",{}); sim.update(self.flight_inputs.get())
         for key in ("temperature_c","pressure_pa","transition_upper","transition_lower","timeout_seconds"):
             sim[key]=float(self.settings[key].get())
-        for key in ("transition_model","roughness"): sim[key]=int(self.settings[key].get())
+        for key in ("roughness",): sim[key]=int(self.settings[key].get())
         for field,key in (("reynolds","reynolds_override"),("mach","mach_override"),
                           ("density_override","density_override"),("viscosity_override","viscosity_override"),
                           ("sound_speed_override","sound_speed_override"),("aspect_ratio_override","aspect_ratio_override")):
@@ -376,7 +376,7 @@ class App:
             if field=="mach" and "relative_airspeed" not in sim and sim.get("mach",0)>0: value=sim["mach"]
             self.settings[field].set(str(value) if value is not None else "")
         for key,default in (("temperature_c",15),("pressure_pa",101325),("transition_upper",1),("transition_lower",1),
-                            ("transition_model",1),("roughness",0),("timeout_seconds",120)):
+                            ("roughness",0),("timeout_seconds",120)):
             self.settings[key].set(str(sim.get(key,default)))
         search=config.get("search",{})
         self.fidelity.set(search)
@@ -504,7 +504,36 @@ class App:
     def cancel(self):
         self.stop.set(); self.status.set("Stopping; retaining completed results…")
 
+    def update_reynolds_estimate(self):
+        """Refresh lightweight estimates without validating unrelated form fields."""
+        from air_conditions import reynolds_estimates
+        try:
+            unit=self.global_unit.get()
+            reference=length_m(float(self.settings["reference_chord_m"].get()),unit)
+            sim={"relative_airspeed":{"value":float(self.flight_inputs.speed.get()),"unit":self.flight_inputs.speed_unit.get()}}
+            for key in ("temperature_c","pressure_pa","density_override","viscosity_override"):
+                value=self.settings[key].get().strip()
+                if value:sim[key]=float(value)
+            override=self.settings["reynolds"].get().strip()
+            if override:sim["reynolds_override"]=float(override)
+            chords=[]
+            for row in self.rows:
+                value=parse(row["chord"].get())
+                values=[value["min"],value["max"]] if isinstance(value,dict) else value if isinstance(value,list) else [value]
+                chords.append([length_m(v,row["length_unit"].get()) for v in values])
+            calculated,effective,elements=reynolds_estimates(sim,reference,chords)
+            label=f"Estimated reference Reynolds: {calculated:,.0f}"
+            if override:label+=f" | Solver override: {effective:,.0f}"
+            detail=" | ".join(f"Airfoil {i}: "+(f"{lo:,.0f}" if lo==hi else f"{lo:,.0f} to {hi:,.0f}") for i,(lo,hi) in enumerate(elements,1))
+            if override:detail="Using solver override - "+detail
+        except (ValueError,KeyError,TypeError,OverflowError):
+            label="Estimated Reynolds: enter valid positive airspeed, chord and air properties"
+            detail=""
+        if self.flight_inputs.reynolds_text.get()!=label:self.flight_inputs.reynolds_text.set(label)
+        if self.flight_inputs.element_reynolds_text.get()!=detail:self.flight_inputs.element_reynolds_text.set(detail)
+
     def poll(self):
+        self.update_reynolds_estimate()
         while not self.messages.empty():
             kind,data=self.messages.get()
             if kind in ("progress","save_progress"):

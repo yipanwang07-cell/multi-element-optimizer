@@ -14,6 +14,7 @@ from design_inputs import absolute_angles, fixed_best_config, UNIT_FACTORS
 from coordinate_search import run_search, SearchBudget, SearchCancelled
 from ground_effect import orient_geometry, signed_result
 from stall_models import stall_model_name
+from transition_models import transition_model_name
 
 def run_design(config,output,base,progress,stop,solver):
     import wing_optimizer as w
@@ -54,7 +55,7 @@ def run_design(config,output,base,progress,stop,solver):
     (output/"input_profiles.json").write_text(json.dumps(profiles))
     hashes={p.name:w.hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(w.VENDOR.glob("*.jar"))}
     (output/"provenance.json").write_text(json.dumps(dict(jar_sha256=hashes,reference_chord_m=reference,
-        generated=datetime.now().isoformat(),solver="JavaFoil",stall_model=stall_model_name(config["simulation"]["stall_model"]),profile_sources=profile_sources,
+        generated=datetime.now().isoformat(),solver="JavaFoil",stall_model=stall_model_name(config["simulation"]["stall_model"]),transition_model=transition_model_name(config["simulation"]["transition_model"]),profile_sources=profile_sources,
         length_units="Physical inputs converted to metres; solver geometry divided by fixed reference chord",
         simulation_conditions=config["simulation"],environment=config["environment"],objective="Cl",force_direction="downward" if config["environment"]["flip_for_downforce"] else "upward",
         angle_modes=modes,note="2D section coefficients; sampled/local optimum, not a proven global maximum"),indent=2))

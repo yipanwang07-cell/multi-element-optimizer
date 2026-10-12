@@ -5,6 +5,7 @@ from design_inputs import UNIT_FACTORS, length_m
 from air_conditions import SPEED_UNITS, air_properties
 from hover_help import term_label
 from stall_models import STALL_MODELS, stall_model_name
+from transition_models import TRANSITION_MODELS, transition_model_label
 
 class FlightInputs:
     def __init__(self,parent):
@@ -28,7 +29,18 @@ class FlightInputs:
         heading.pack(side="left",padx=(0,12))
         self.stall_model_box=ttk.Combobox(model_frame,textvariable=self.stall_model,values=list(STALL_MODELS.values()),state="readonly",width=20)
         self.stall_model_box.pack(side="left")
-        ttk.Label(self.frame,text="Sea-level air · 15°C · Reynolds calculated automatically",style="Muted.TLabel",wraplength=1040).grid(row=2,column=0,columnspan=2,sticky="w",padx=8,pady=4)
+        self.transition_model=tk.StringVar(value=transition_model_label())
+        transition_frame=ttk.Frame(self.frame);transition_frame.grid(row=2,column=0,columnspan=2,sticky="w",padx=8,pady=5)
+        heading,_=term_label(transition_frame,"Transition model","transition_model",style="Muted.TLabel")
+        heading.pack(anchor="w",pady=(0,5))
+        self.transition_model_box=ttk.Combobox(transition_frame,textvariable=self.transition_model,
+            values=[transition_model_label(k) for k in TRANSITION_MODELS],state="readonly",width=62)
+        self.transition_model_box.pack(anchor="w")
+        self.reynolds_text=tk.StringVar(value="Estimated Reynolds: enter airspeed and chord")
+        self.element_reynolds_text=tk.StringVar()
+        ttk.Label(self.frame,textvariable=self.reynolds_text,style="Muted.TLabel",wraplength=850).grid(row=3,column=0,columnspan=2,sticky="w",padx=8,pady=(10,2))
+        ttk.Label(self.frame,textvariable=self.element_reynolds_text,style="Muted.TLabel",wraplength=850).grid(row=4,column=0,columnspan=2,sticky="w",padx=8,pady=(0,5))
+
 
     def convert(self,kind):
         factors=UNIT_FACTORS if kind=="span" else SPEED_UNITS
@@ -44,10 +56,12 @@ class FlightInputs:
     def get(self):
         return dict(wingspan={"value":float(self.span.get()),"unit":self.span_unit.get()},
                     relative_airspeed={"value":float(self.speed.get()),"unit":self.speed_unit.get()},
-                    stall_model=next(k for k,v in STALL_MODELS.items() if v==self.stall_model.get()))
+                    stall_model=next(k for k,v in STALL_MODELS.items() if v==self.stall_model.get()),
+                    transition_model=next(k for k in TRANSITION_MODELS if transition_model_label(k)==self.transition_model.get()))
 
     def set(self,sim,reference):
         self.stall_model.set(stall_model_name(sim.get("stall_model",1)))
+        self.transition_model.set(transition_model_label(sim.get("transition_model",1)))
         span=sim.get("wingspan",{"value":1500,"unit":"mm"})
         unit=span.get("unit","mm") if isinstance(span,dict) else "m"
         self.span_unit.set(unit); self.old_span=unit

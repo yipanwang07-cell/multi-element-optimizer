@@ -44,3 +44,18 @@ def normalize_conditions(sim,reference):
         wingspan_m=span,airspeed_m_s=velocity,air_density_kg_m3=rho,dynamic_viscosity_pa_s=mu,
         speed_of_sound_m_s=sound,reference_area_m2=span*reference)
     return sim
+
+
+def reynolds_estimates(sim,reference,chords):
+    """Physical reference estimate and solver-scaled per-element chord ranges."""
+    reference=positive(reference,"Reference chord")
+    speed=sim["relative_airspeed"]
+    velocity=positive(speed["value"],"Relative airspeed")*SPEED_UNITS[speed.get("unit","m/s")]
+    rho,mu,_=air_properties(sim)
+    calculated=rho*velocity*reference/mu
+    effective=positive(sim.get("reynolds_override",calculated),"Reference Reynolds number")
+    elements=[]
+    for values in chords:
+        lengths=[positive(v,"Chord") for v in values]
+        elements.append((effective*min(lengths)/reference,effective*max(lengths)/reference))
+    return calculated,effective,elements

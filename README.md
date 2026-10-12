@@ -211,3 +211,25 @@ For JSON setups use `simulation.stall_model`: `0`, `1`, or `2`, respectively.
 JavaFoil's [multi-element guidance](https://www.mh-aerotools.de/airfoils/jf_multi.htm)
 generally prefers Eppler. Selecting None disables the empirical correction; it
 does not make separated-flow or maximum-lift predictions more accurate.
+
+## Transition models and live Reynolds estimates
+
+Simulation settings expose all nine JavaFoil transition criteria: Eppler 1/2,
+Michel 1/2, H12-Re(s), Granville, Drela e^n before/after 1991, and Arnal e^n.
+The default is Eppler 1. All three stall models remain independently selectable.
+JSON `simulation.transition_model` uses JavaFoil's actual IDs **1-9**, in that order.
+The previous 0-3 restriction was incorrect; 0 is not a valid JavaFoil transition ID.
+Older configurations without this setting retain the default of 1.
+
+Dropdown guidance follows the [JavaFoil boundary-layer documentation](https://www.mh-aerotools.de/airfoils/jf_analysis_boundarylayer.htm):
+Eppler 1/2: Re > 100,000; Michel 1/2: Re > 2,000,000; Granville: Re > 5,000,000.
+The other entries say "Re guidance not published". These are recommendations,
+not enforced bounds or evidence of accuracy at every Reynolds number.
+
+The reference and per-airfoil Reynolds estimates update as airspeed, chord, units,
+or air properties change. Chord ranges show minimum/maximum Reynolds values.
+An advanced Reynolds override is displayed separately from the physical estimate;
+per-element solver values then scale from that override. Invalid or incomplete
+inputs clear the estimate instead of leaving a stale value. Temperature, pressure,
+density and viscosity overrides are respected. Turbulence intensity is not a
+Reynolds-number input.

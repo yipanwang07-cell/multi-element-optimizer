@@ -21,6 +21,7 @@ from airfoil_library import resolve_profile, find as find_library_profile
 
 from app_paths import ROOT,EXAMPLES,VENDOR
 from stall_models import stall_model_id, stall_model_name
+from transition_models import transition_model_id, transition_model_name
 if (VENDOR / "python").exists():
     sys.path.insert(0, str(VENDOR / "python"))
 from shapely.geometry import Polygon
@@ -270,7 +271,7 @@ Options.AspectRatio({settings.get("aspect_ratio",0)});
 Options.SweepAngle(0);
 Options.GroundEffect({int(settings.get("ground_effect",False))});
 Options.StallModel({stall_model_id(settings.get("stall_model",1))});
-Options.TransitionModel({settings.get("transition_model",1)});
+Options.TransitionModel({transition_model_id(settings.get("transition_model",1))});
 Geometry.Clear();
 if (!Geometry.Open({q(geo)})) throw new Error("Geometry import failed");
 Geometry.Save({q(directory/"loaded_geometry.txt")});
@@ -364,8 +365,7 @@ def prepare(config,base):
             raise ValueError(key+" must be in (0,1]")
     if int(sim.get("roughness",0)) not in range(4):
         raise ValueError("Roughness must be 0,1,2,3")
-    if int(sim.get("transition_model",1)) not in range(4):
-        raise ValueError("Transition model index must be 0..3")
+    sim["transition_model"]=transition_model_id(sim.get("transition_model",1))
     sim["timeout_seconds"]=positive(sim.get("timeout_seconds",120),"timeout")
     clearance=float(config.get("minimum_clearance",.001))
     if not math.isfinite(clearance) or clearance<0:
@@ -440,6 +440,7 @@ def write_report(output, summary):
         config=json.loads((output/"config.json").read_text())
         objective="Cl"
         sim=config.get("simulation",{})
+        text+="<p>Transition model: "+escape(transition_model_name(sim.get("transition_model",1)))+"</p>"
         text+="<p>Stall model: "+escape(stall_model_name(sim.get("stall_model",1)))+"</p>"
         if "airspeed_m_s" in sim:
             text+=f'<p>Wingspan: {sim["wingspan_m"]:g} m · Relative airspeed: {sim["airspeed_m_s"]:g} m/s · Reference Re: {sim["reynolds"]:.0f} · Mach: {sim["mach"]:.4f} · Aspect ratio: {sim["aspect_ratio"]:g}</p>'

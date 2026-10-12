@@ -43,7 +43,7 @@ HELP={
 "aspect_ratio_override":"JavaFoil's approximate finite-span correction parameter. Automatically wingspan / fixed reference chord. Leave blank for automatic calculation; 0 gives a 2D section result.",
 "transition_upper":"Requested upper-surface laminar-to-turbulent transition location, as a fraction of chord. 0.5 is halfway; 1 is the trailing edge. Must be greater than 0 and at most 1.",
 "transition_lower":"Requested lower-surface laminar-to-turbulent transition location, as a fraction of chord. 0.5 is halfway; 1 is the trailing edge. Must be greater than 0 and at most 1.",
-"transition_model":"JavaFoil boundary-layer transition model selector, from 0 to 3. Default 1. Keep the default unless comparing specific transition models.",
+"transition_model":"Select any of JavaFoil's nine laminar-to-turbulent transition criteria. Dropdown Reynolds guidance comes from its documentation; a lower bound is not a guaranteed validity range. Models without a published recommendation are marked accordingly. Default: Eppler 1. This is separate from the stall correction.",
 "roughness":"JavaFoil surface-roughness class, from 0 to 3. Default 0. Changes the boundary-layer assumptions.",
 "timeout_seconds":"Maximum time allowed for one JavaFoil simulation, in seconds. A timed-out case is recorded as failed and cannot become the best design.",
 "cl":"Dimensionless lift coefficient used to compare candidates. In flipped orientation, positive Cl represents downforce. Saved lift_cl remains upward-positive. Cl depends on the fixed lift reference length.",
