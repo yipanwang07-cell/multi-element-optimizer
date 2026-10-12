@@ -470,7 +470,7 @@ class App:
                 font=("Segoe UI",12),fill="#98a2b3")
             return
         pts=[p for element in self.geometry for p in element]
-        x0=min(x for x,y in pts); x1=max(x for x,y in pts); y0=min(y for x,y in pts); y1=max(y for x,y in pts)
+        x0=min(0.,min(x for x,y in pts)); x1=max(x for x,y in pts); y0=min(y for x,y in pts); y1=max(y for x,y in pts)
         ground=self.scene_environment.get("ground_effect",False)
         from design_inputs import length_m
         from geometric_constraints import constraint_kind
@@ -502,6 +502,9 @@ class App:
             selected=", ".join(map(str,group["elements"]))
             self.canvas.create_line(0,line_y,width,line_y,fill="#d97706",dash=(7,4),width=2,tags="height-ceiling")
             self.canvas.create_text(12,line_y-9,text=f"Airfoils {selected}: must stay below {value:g} {unit}",anchor="w",fill="#b45309",tags="height-ceiling")
+        origin_x=width/2-cx*scale
+        self.canvas.create_line(origin_x,0,origin_x,height,fill="#64748b",dash=(3,3),tags="length-reference")
+        self.canvas.create_text(origin_x+8,height-18,text="First leading edge: x = 0",anchor="sw",fill="#475569",tags="length-reference")
         for group,limit in lengths:
             line_x=width/2+(limit-cx)*scale
             unit=group.get("unit","m");value=length_m(group["max_length"],unit)/UNIT_FACTORS[unit]

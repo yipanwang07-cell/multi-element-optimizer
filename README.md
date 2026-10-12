@@ -55,11 +55,25 @@ but do not constrain the search.
 | Limit | What it means |
 | --- | --- |
 | Height | Every selected airfoil's highest point must remain at or below the specified y coordinate. With ground effect, y = 0 is the ground. |
-| Length | Every selected airfoil's rightmost point must remain at or before the specified x coordinate, measured from x = 0. This is a position boundary, not chord length or overall assembly width. |
+| Length | Every selected airfoil's rightmost point must remain at or before the specified x coordinate, measured from the first airfoil leading edge at x = 0. This is a position boundary, not chord length or overall assembly width. |
 
 For example, airfoils 1 and 2 can have a **200 mm height** limit and a **600 mm length**
 limit, while airfoils 3 and 4 use different limits. At least one limit must be enabled.
-The preview shows horizontal height lines and vertical length lines.
+The preview shows horizontal height lines and vertical length lines. The first
+airfoil's leading edge is fixed at **x = 0**, including when its angle changes.
+
+### Height constraint
+
+Selected airfoils must stay below the horizontal line, measured from y = 0.
+
+![Height constraint: selected airfoils remain below a horizontal ceiling](docs/images/height-constraint.svg)
+
+### Length constraint
+
+Selected airfoils must stay behind the vertical line, measured from the first
+leading edge at x = 0. The diagrams are illustrative, not optimized results.
+
+![Length constraint: selected airfoils remain behind a vertical boundary measured from the first leading edge](docs/images/length-constraint.svg)
 
 Within selected groups, the search optimizes **chords → angles → slot gaps → overlaps**.
 Each stage carries its best valid design into the next. Collision, clearance and

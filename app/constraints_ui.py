@@ -9,7 +9,7 @@ class ConstraintEditor:
     def __init__(self,parent):
         self.element_count=0
         self.frame=ttk.LabelFrame(parent,text="Geometry limits",padding=16)
-        ttk.Label(self.frame,text="Enable height ceilings (y = 0) or length boundaries (x = 0) for selected airfoils.",style="Muted.TLabel",wraplength=1000).pack(anchor="w",pady=(0,5))
+        ttk.Label(self.frame,text="Enable height ceilings (y = 0) or length boundaries (first leading edge = 0) for selected airfoils.",style="Muted.TLabel",wraplength=1000).pack(anchor="w",pady=(0,5))
         self.rows=[]; self.container=ttk.Frame(self.frame); self.container.pack(fill="x")
         ttk.Button(self.frame,text="Add geometry limit",command=self.add).pack(anchor="w",pady=6)
 

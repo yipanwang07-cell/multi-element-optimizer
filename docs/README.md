@@ -326,7 +326,7 @@ enter a value and unit, and use **Enable** to switch the row on or off. At least
 row must be enabled. Multiple rows can constrain overlapping groups of airfoils.
 
 Height uses the highest y coordinate above the ground/reference plane. Length uses
-the rightmost x coordinate from x = 0, not the individual chord or assembly width.
+the rightmost x coordinate from the first airfoil leading edge at x = 0, not the individual chord or assembly width.
 The preview shows horizontal and vertical limit lines. Both are checked on placed,
 rotated geometry before invoking JavaFoil, including flipped ground-effect setups.
 Disabled rows are retained in saved configurations but ignored by the search.

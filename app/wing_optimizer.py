@@ -160,7 +160,11 @@ def build_geometry(profiles, chords, params, reference, angle_modes=None):
         result.append(pts)
         # TE midpoint is a stable anchor even for thick imported trailing edges.
         prev_te = ((pts[0][0]+pts[-1][0])/2,(pts[0][1]+pts[-1][1])/2)
-    return result
+    # Profiles are sampled TE -> LE -> TE, with the LE at the middle index.
+    # Anchor the entire assembly to that point (not the minimum x of a rotated
+    # rounded nose), preserving every element's relative gap and overlap.
+    leading_x=result[0][len(result[0])//2][0]
+    return [[(x-leading_x,y) for x,y in element] for element in result]
 
 def validate_geometry(geometry, clearance, box=None):
     polygons = [Polygon(p) for p in geometry]

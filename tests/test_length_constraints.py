@@ -55,3 +55,16 @@ class LengthConstraintTests(unittest.TestCase):
             self.assertGreater(result["rejected_geometries"],0)
             self.assertEqual(len(solver.ids),result["successful_geometries"])
             self.assertIn("Rightmost point",(Path(folder)/"run/report.html").read_text())
+
+    def test_first_leading_edge_is_origin_after_rotation_and_ground_flip(self):
+        from ground_effect import orient_geometry
+        for angle in (-25,0,30):
+            profile=w.naca4("2412",40)
+            # Also exercise an offset leading-edge point, rather than assuming
+            # that every imported/resampled profile has exact zero coordinates.
+            shifted=[(x+.01,y+.02) for x,y in profile]
+            g=w.build_geometry([shifted,profile],[.4,.15],dict(incidence_1=angle,incidence_2=35,gap_2=.1,overlap_2=.05),.4)
+            self.assertAlmostEqual(g[0][20][0],0)
+            oriented=orient_geometry(g,.4,dict(ground_effect=True,flip_for_downforce=True,clearance_m=.03))
+            self.assertAlmostEqual(oriented[0][20][0],0)
+            self.assertAlmostEqual(g[1][20][0],(g[0][0][0]+g[0][-1][0])/2-.05)
