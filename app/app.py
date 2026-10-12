@@ -143,6 +143,14 @@ class App:
         self.log=tk.Text(console,height=6,wrap="word",state="disabled",background="#142b3d",foreground="#d9e6ee",font=("Consolas",11),relief="flat",padx=12,pady=10,highlightthickness=1,highlightbackground="#e4e9f1"); self.log.pack(side="left",fill="both",expand=True)
         self.console_scrollbar=ttk.Scrollbar(console,orient="vertical",command=self.log.yview)
         self.console_scrollbar.pack(side="right",fill="y");self.log.configure(yscrollcommand=self.console_scrollbar.set)
+        cfd=ttk.LabelFrame(results,text="2D viscous CFD check — saved best design",padding=8)
+        cfd.grid(row=2,column=0,sticky="ew")
+        self.cfd_resolution=tk.StringVar(value="Standard")
+        self.cfd_transition=tk.StringVar(value="Fully turbulent SST")
+        ttk.Combobox(cfd,textvariable=self.cfd_resolution,values=["Standard","Fine"],state="readonly",width=10).pack(side="left",padx=4)
+        ttk.Combobox(cfd,textvariable=self.cfd_transition,values=["Fully turbulent SST","SST + transition"],state="readonly",width=22).pack(side="left",padx=4)
+        ttk.Button(cfd,text="Check best with CFD",command=self.check_cfd).pack(side="left",padx=6)
+        add_help(cfd,"cfd_validation")
         commands=ttk.Frame(outer,style="Action.TFrame",padding=(14,12)); commands.grid(row=3,column=0,sticky="ew",pady=(12,4))
         self.preview_button=ttk.Button(commands,text="Preview geometry",command=self.preview);self.preview_button.pack(side="left")
         self.start_button=ttk.Button(commands,text="Optimize",style="Primary.TButton",command=self.start); self.start_button.pack(side="left",padx=8)
@@ -585,6 +593,15 @@ class App:
                     self.log.configure(state="normal"); self.log.insert("end",data+"\n")
                     if at_bottom:self.log.see("end")
                     self.log.configure(state="disabled")
+            elif kind in ("cfd_done","cfd_error"):
+                self.saving=False;self.start_button.configure(state="normal");self.stop_button.configure(state="disabled")
+                if self.output and (self.output/"best/best.json").exists():self.save_design_button.configure(state="normal")
+                if kind=="cfd_error":
+                    self.status.set("CFD check failed: "+data);messagebox.showerror("CFD check",data)
+                else:
+                    destination,result=data
+                    self.status.set(f"CFD: {result['status']} • Cl {result['cl']:.4f} • Cd {result['cd']:.5f}")
+                    webbrowser.open((Path(destination)/"report.html").as_uri())
             elif kind in ("saved","save_error"):
                 self.saving=False;self.start_button.configure(state="normal");self.stop_button.configure(state="disabled")
                 self.save_design_button.configure(state="normal")
@@ -608,6 +625,30 @@ class App:
                         self.draw()
                     if (self.output/"report.html").exists(): self.report_button.configure(state="normal")
         self._poll_timer=self.root.after(150,self.poll)
+
+    def check_cfd(self):
+        if self.running or self.saving:
+            self.status.set("Stop or finish the current operation before checking the saved best with CFD.");return
+        if not self.output or not (self.output/"best/best_config.json").exists():
+            self.status.set("Run an optimization first to obtain a saved design for CFD.");return
+        try:
+            from cfd_solver import executable
+            executable()
+        except Exception as error:messagebox.showerror("CFD tools",str(error));return
+        fine=self.cfd_resolution.get()=="Fine"
+        options=dict(iterations=6000 if fine else 3000,surface_size=.008 if fine else .015,
+            first_layer=5e-6 if fine else 1e-5,domain_chords=30 if fine else 20,
+            transition=self.cfd_transition.get()=="SST + transition",timeout_seconds=1800)
+        source=self.output;self.saving=True;self.stop.clear()
+        self.start_button.configure(state="disabled");self.save_design_button.configure(state="disabled");self.stop_button.configure(state="normal")
+        def worker():
+            try:
+                from cfd_solver import validate_saved_design
+                destination,result=validate_saved_design(source,options,self.stop,lambda text:self.messages.put(("save_progress",text)))
+                self.messages.put(("cfd_done",(str(destination),result)))
+            except engine.Cancelled:self.messages.put(("cfd_error","Canceled; sweep results are retained."))
+            except Exception as error:self.messages.put(("cfd_error",str(error)))
+        threading.Thread(target=worker,daemon=True).start()
 
     def save_design(self):
         if self.running or self.saving or not self.output: return

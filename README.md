@@ -6,8 +6,10 @@ sized airfoils, search their arrangement for maximum **Cl**, and export a comple
 design record. There is no app-imposed airfoil-count limit; practical capacity
 depends on JavaFoil, panel count, memory and computation time.
 
-**Current aerodynamic backend: JavaFoil.** CFD cross-checks and a higher-fidelity
-Euler + boundary-layer final-solution stage are future work, not current features.
+**Fast sweep backend: JavaFoil.** An optional **SU2 2D viscous CFD check** can analyze
+the saved winner with SST turbulence and optional transition modelling. It is a
+separate diagnostic analysis; automatic CFD re-ranking and validated accuracy
+remain future work. See [CFD installation and method](docs/CFD_SOLVER.md).
 
 
 ## Install instructions
@@ -81,6 +83,12 @@ all enabled limits are checked before simulation. Later rounds revisit interacti
 parameters. Both functions use coarse sweeps followed by fine refinement.
 
 ## Transition and boundary layer modelling
+
+For a resolved viscous-flow check, use **Check best with CFD** on the Results tab.
+It offers SST or SST + transition, Standard/Fine meshes, convergence checks,
+wall shear and y+ outputs. [Method, installation and limitations](docs/CFD_SOLVER.md).
+The settings below apply to the fast JavaFoil sweeps.
+
 
 JavaFoil supplies the aerodynamic panel/boundary-layer analysis. Transition and
 stall correction are separate choices in **Simulation settings**.
@@ -224,6 +232,11 @@ $env:PYTHONUTF8 = "1"
 See also [regression coverage](docs/REGRESSION_TESTING.md).
 
 ## Future plans
+
+An initial optional SU2 SST validation path is now implemented. The roadmap below
+continues to cover benchmark validation, automatic shortlist ranking and other
+solver research; those capabilities are not implied by the new integration.
+
 
 ### Cross-reference results with CFD
 
